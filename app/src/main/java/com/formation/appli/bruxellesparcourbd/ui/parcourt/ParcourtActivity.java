@@ -23,6 +23,7 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     private int debut;
     private int fin;
     private ImageView iv_Parcourt_image;
+    private Bundle bd;
 
 
     public static final String PARCOURT_BD_CHOISIS = "parcourt_choisis";
@@ -107,21 +108,21 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     private void play(){
         Intent fresqueIntent  = new Intent(this,FresqueActivity.class);
         fresqueIntent.putExtra(PARCOURT_BD_CHOISIS,parcourtBdChoisi);
-        fresqueIntent.putExtra(UserActivity.NUMERODEPARCOURT,parcourtBdChoisi);
+        fresqueIntent.putExtra(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
         startActivity(fresqueIntent);
     }
 
     private void loadListe(){
-        FragmentManager fragman = getFragmentManager();
-        FragmentTransaction fragTrans = fragman.beginTransaction();
         ParcourtListFresqueBDFragment listFresParcFrag = new ParcourtListFresqueBDFragment();
-        loadFragment((R.id.fl_parcourt_frame, listFresParcFrag);
-        fragTrans.commit();
+        bd.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdChoisi);
+        bd.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
+        listFresParcFrag.setArguments(bd);
+        loadFragment(R.id.fl_parcourt_frame, listFresParcFrag);
     }
 
     private void  loadMaps(){
         ParcourtCarteFragment mapParcFrag = new ParcourtCarteFragment();
-        loadFragment((R.id.fl_parcourt_frame, mapParcFrag);
+        loadFragment(R.id.fl_parcourt_frame, mapParcFrag);
     }
 
     @Override
