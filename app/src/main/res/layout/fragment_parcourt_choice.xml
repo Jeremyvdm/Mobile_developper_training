@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtChoiceFragment">
+
+    <LinearLayout
+        style="@style/LinearLayoutFrame">
+
+        <TextView
+            android:id="@+id/tv_choice_parcourt_fragment"
+            style="@style/textViewTextFrame"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"/>
+
+        <Button
+            android:id="@+id/btn_parcourt_carte"
+            android:text="@string/btn_parcourt_carte"
+            style="@style/Button2" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"/>
+
+        <Button
+            android:id="@+id/btn_parcourt_liste"
+            android:text="@string/btn_parcourt_liste"
+            style="@style/Button2" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"/>
+
+        <Button
+            android:id= "@+id/btn_parcourt_play"
+            android:text="@string/btn_parcourt_choose"
+            style="@style/Button2" />
+    </LinearLayout>
+
+</FrameLayout>

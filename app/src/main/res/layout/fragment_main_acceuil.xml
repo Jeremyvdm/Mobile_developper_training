@@ -1,0 +1,59 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.main.AcceuilMainFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/LinearLayoutFrame">
+
+        <TextView
+            style="@style/textViewTextFrame"
+            android:text="@string/acceuil_fragment" />
+
+        <LinearLayout
+            style="@style/LinearLayoutuserInput">
+        <TextView
+            style="@style/textViewTextFrameMiddle"
+            android:text="@string/tv_user_name"/>
+        <EditText
+            android:id="@+id/et_acceuil_UserName"
+            style="@style/edithTextFrameMiddle" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LinearLayoutuserInput">
+
+            <TextView
+                style="@style/textViewTextFrameMiddle"
+                android:text="@string/tv_password"/>
+            <EditText
+                android:id="@+id/et_acceuil_Password"
+                style="@style/edithTextFrameMiddle" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/LinearLayoutButton">
+
+            <Button
+                android:id="@+id/btn_acceuil_connection"
+                style="@style/Button"
+                android:text="@string/btn_connection"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/btn_acceuil_new_user"
+                style="@style/Button"
+                android:text="@string/btn_nouvel_utilisateur"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

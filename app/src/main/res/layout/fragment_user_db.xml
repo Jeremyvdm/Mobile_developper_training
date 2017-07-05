@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.User.DbUserFragment">
+
+    <LinearLayout
+        style="@style/LinearLayoutFrame">
+
+        <TextView
+            android:text="@string/db_fragment"
+            style="@style/textViewTextFrame"/>
+
+        <Button
+            android:id="@+id/btn_db_user_stat"
+            android:text="@string/btn_user_db_stat"
+            style="@style/Button2" />
+
+        <Button
+            android:id="@+id/btn_db_user_parcourt_deja_effecuer"
+            android:text="@string/btn_user_db_parcourt_deja_parcouru"
+            style="@style/Button2" />
+
+        <Button
+            android:id= "@+id/btn_db_user_retour"
+            android:text="@string/btn_user_db_retour"
+            style="@style/Button2" />
+    </LinearLayout>
+
+</FrameLayout>

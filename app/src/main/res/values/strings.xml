@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">BruxellesParcourBD</string>
+
+
+    <string name="acceuil_fragment">Bienvenu dans le jeu pour découvrir l\'univers de la BD en s\'amusant.</string>
+    <string name="new_user_fragment">Ajouter un nouvel Utiliseur</string>
+    <string name="user_fragment">Bonjour %s que voulez vous faire?</string>
+    <string name="parcourt_fragment">Quel parcourt voulez vous choisir?</string>
+    <string name="db_fragment">Bienvenu dans la base de données que voulez vous faire</string>
+    <string name="parcourt_choice_fragment">Bienvenu dans le parcourt numéro %i</string>
+    <string name="parcourt_map_fragment">Voici la carte général du parcourt</string>
+    <string name="parcourt_list_fresque">voici la liste des fresques que vous aller trouver dans le parcourt</string>
+
+    <string name="tv_user_name">User Name</string>
+    <string name="tv_password">Mot de Passe</string>
+    <string name="tv_Last_name">Nom</string>
+    <string name="tv_First_name">Prenom</string>
+    <string name="tv_email">Email</string>
+    <string name="tv_confrimPassword">Mot de passe</string>
+
+    <string name="btn_connection">Connection</string>
+    <string name="btn_nouvel_utilisateur">Nouvel Utilisateur</string>
+    <string name="btn_confirm_information">Confirmer les informations</string>
+
+    <string name="btn_user_choice_choix_parcourt">Choisir un parcourt</string>
+    <string name="btn_user_choice_accès_db">Accèder à la base de donnée</string>
+    <string name="btn_user_choice_parcourt_general">Accèder au parcourt générale</string>
+
+    <string name="btn_user_db_stat">voir les statistiques</string>
+    <string name="btn_user_db_parcourt_deja_parcouru">accèder au parcourts déjà effectuer</string>
+    <string name="btn_user_db_retour">retour</string>
+
+    <string name="btn_user_parcourt_1">Parcourt numéro 1</string>
+    <string name="btn_user_parcourt_2">Parcourt numéro 2</string>
+    <string name="btn_user_parcourt_3">Parcourt numéro 3</string>
+    <string name="btn_user_parcourt_4">Parcourt numéro 4</string>
+    <string name="btn_user_parcourt_5">Parcourt numéro 5</string>
+
+    <string name="btn_parcourt_carte">commencer le jeu</string>
+    <string name="btn_parcourt_liste">liste des fresques du parcourt</string>
+    <string name="btn_parcourt_choose">choisir ce parcourt</string>
+
+
+    <string name="toast_not_same_password">les deux mots de passe ne corresponde pas veuillez inserer deux fois le même mot de passe</string>
+    <string name="toast_parcourt_choisis">le parcourt à bien été sélectionner</string>
+
+
+</resources>

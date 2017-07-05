@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.User.ParcourtUserFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            style="@style/LinearLayoutFrame">
+
+            <TextView
+                android:text="@string/db_fragment"
+                style="@style/textViewTextFrame"/>
+
+            <Button
+                android:id="@+id/btn_user_parcourt_1"
+                android:text="@string/btn_user_parcourt_1"
+                style="@style/Button2" />
+
+            <Button
+                android:id="@+id/btn_user_parcourt_2"
+                android:text="@string/btn_user_parcourt_2"
+                style="@style/Button2" />
+
+            <Button
+                android:id="@+id/btn_user_parcourt_3"
+                android:text="@string/btn_user_parcourt_3"
+                style="@style/Button2" />
+
+            <Button
+                android:id="@+id/btn_user_parcourt_4"
+                android:text="@string/btn_user_parcourt_4"
+                style="@style/Button2" />
+
+            <Button
+                android:id="@+id/btn_user_parcourt_5"
+                android:text="@string/btn_user_parcourt_5"
+                style="@style/Button2" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
