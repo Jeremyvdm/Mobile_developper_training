@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class ParcourtListFresqueBDFragment extends Fragment {
 
     private ParcourtBD parcourtBD;
+    private FresqueBD fresqueBD;
     private int numéroParcourChoisi;
     private ListView lvFresqueBdList;
     ArrayList<String> titre;
@@ -46,7 +47,7 @@ public class ParcourtListFresqueBDFragment extends Fragment {
 
     //region Communication
     public interface ParcourtListFresqueBDFragmentCallback {
-        void onListClick(String name);
+        void onListClick(String titre,FresqueBD bd);
     }
 
     private ParcourtListFresqueBDFragmentCallback callback;
@@ -92,7 +93,13 @@ public class ParcourtListFresqueBDFragment extends Fragment {
 
     private void envoyerCallback(String titre) {
         if (callback != null) {
-            callback.onListClick(titre);
+            ArrayList<FresqueBD> parcourtBDList = parcourtBD.getParcourtFresqueBD();
+            for(int i=0;i<parcourtBDList.size();i++){
+                String titrefresqueI = parcourtBDList.get(i).getTitre();
+                if(titre==titrefresqueI)
+                    fresqueBD = parcourtBDList.get(i);
+            }
+            callback.onListClick(titre,fresqueBD);
         }
     }
 

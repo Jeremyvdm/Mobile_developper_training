@@ -20,6 +20,10 @@
 
     <string name="tv_titre_freque">Titre</string>
     <string name="tv_auteur_fresque">Auteur</string>
+    <string name="tv_annee_fresque">Annee</string>
+    <string name="tv_fresque_image">Image</string>
+    <string name="tv_fresque_latitude">latitude</string>
+    <string name="tv_fresque_longitude">longitude</string>
 
     <string name="btn_connection">Connection</string>
     <string name="btn_nouvel_utilisateur">Nouvel Utilisateur</string>

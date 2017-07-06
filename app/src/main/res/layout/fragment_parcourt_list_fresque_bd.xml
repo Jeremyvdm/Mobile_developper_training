@@ -3,11 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtListFresqueBDFragment">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ScrollView>
     <LinearLayout
         style="@style/LinearLayoutFrame">
         <TextView
@@ -16,8 +11,7 @@
         <Button
             android:id="@+id/btn_parcourt_list_fresque_view"
             android:text="@string/parcourt_list_fresque_view"
-            style="@style/Button2"
-            />
+            style="@style/Button2" />
 
         <ListView
             android:id="@+id/lv_parcourt_list_fresque_view"

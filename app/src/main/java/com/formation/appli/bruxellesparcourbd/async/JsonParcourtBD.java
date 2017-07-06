@@ -22,7 +22,11 @@ import java.util.ArrayList;
  * Created by Jeremyvdm on 03/07/2017.
  */
 
-public class JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
+public class
+
+
+
+JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
     private ArrayList<FresqueBD> parcourtBDJson;
 

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.async.JsonParcourtBD;
+import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
 import com.formation.appli.bruxellesparcourbd.ui.FresqueBD.FresqueActivity;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
@@ -24,10 +25,10 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     private int fin;
     private ImageView iv_Parcourt_image;
     private Bundle bd;
-    private static final String TITRE = "Titre";
+    public static final String TITREFRESQUE = "Titre";
 
-
-    public static final String PARCOURT_BD_CHOISIS = "parcourt_choisis";
+    public static final String PARCOURT_BD_CHOISIS = "parcourt_bd_choisi";
+    public static final String BD_CHOISIS = "BD_choisie";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,10 +135,10 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     }
 
     @Override
-    public void onListClick(String titre) {
+    public void onListClick(String titre, FresqueBD bd) {
         Intent fresqueBDIntent = new Intent(this, FresqueActivity.class);
-        fresqueBDIntent.putExtra(TITRE,titre);
-        fresqueBDIntent.putExtra(PARCOURT_BD_CHOISIS,parcourtBdChoisi);
+        fresqueBDIntent.putExtra(TITREFRESQUE,titre);
+        fresqueBDIntent.putExtra(BD_CHOISIS,bd);
         startActivity(fresqueBDIntent);
     }
 }
