@@ -51,18 +51,19 @@ public class ParcourtChoiceFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_parcourt_choice, container, false);
-        initFragment(v);
+        v= initFragment(v);
         return v;
     }
 
-    private void initFragment(View v){
+    private View initFragment(View v){
         btn_parcourt_maps = (Button) v.findViewById(R.id.btn_parcourt_carte);
-        btn_parcourt_liste = (Button) v.findViewById(R.id.btn_parcourt_play);
+        btn_parcourt_liste = (Button) v.findViewById(R.id.btn_parcourt_liste_fresque);
         btn_parcourt_choix = (Button) v.findViewById(R.id.btn_parcourt_play);
 
         btn_parcourt_maps.setOnClickListener(this);
         btn_parcourt_liste.setOnClickListener(this);
         btn_parcourt_choix.setOnClickListener(this);
+        return v;
     }
 
     @Override

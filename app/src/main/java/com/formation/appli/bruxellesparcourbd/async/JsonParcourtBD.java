@@ -50,10 +50,11 @@ public class JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueB
         JSONObject parcourtJson = resuqestJson(bxlParcourtBDURL);
 
         try {
-            int lenghtParcourtJson = parcourtJson.getInt("total_count");
+
             JSONArray parcourtJsonArray = parcourtJson.getJSONArray("records");
+            int lenghtParcourtJson = parcourtJsonArray.length();
             for(int i =0; i < lenghtParcourtJson;i++){
-                String fresquebdUrl = parcourtJsonArray.getJSONObject(i).getJSONArray("links").getJSONObject(1).getString("href");
+                String fresquebdUrl = parcourtJsonArray.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
                 JSONObject jsonFresqueBD = resuqestJson(fresquebdUrl);
                 FresqueBD fresqueBD = convertJsonToFresque(jsonFresqueBD);
                 parcourtBDJson.add(fresqueBD);
@@ -74,7 +75,7 @@ public class JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueB
         String ressourceIamge = "";
         Coordonees coordonée = null;
         try {
-            JSONObject jsonField = jsonFresqueBD.getJSONObject("reccords").optJSONObject("fields");
+            JSONObject jsonField = jsonFresqueBD.getJSONObject("record").optJSONObject("fields");
             titre = jsonField.getString("personnage_s");
             auteur = jsonField.getString("auteur_s");
             annee = Integer.parseInt(jsonField.getString("annee"));
