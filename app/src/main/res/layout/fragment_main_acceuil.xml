@@ -18,7 +18,7 @@
             style="@style/textViewTextFrameMiddle"
             android:text="@string/tv_user_name"/>
         <EditText
-            android:id="@+id/et_acceuil_UserName"
+            android:id="@+id/et_acceuil_email"
             style="@style/edithTextFrameMiddle" />
         </LinearLayout>
 

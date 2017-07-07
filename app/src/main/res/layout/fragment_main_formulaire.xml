@@ -70,18 +70,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            style="@style/LinearLayoutuserInput">
-
-            <TextView
-                style="@style/textViewTextFrameMiddle"
-                android:text="@string/tv_confrimPassword"/>
-            <EditText
-                android:id="@+id/et_formulaire_confirm_password"
-                style="@style/edithTextFrameMiddle" />
-
-        </LinearLayout>
-
         <Button
             android:id="@+id/btn_formulaire_confirm"
             android:text="@string/btn_confirm_information"

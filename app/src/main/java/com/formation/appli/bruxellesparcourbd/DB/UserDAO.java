@@ -99,7 +99,7 @@ public class UserDAO {
         String email = c.getString(c.getColumnIndex(COLUMN_EMAIL));
         String password = c.getString(c.getColumnIndex(COLUMN_PASSWORD));
 
-        return new User(id,lastName,firstName,userName,email,password,password);
+        return new User(id,lastName,firstName,userName,email,password);
     }
 
     public User getUserById(int id){

@@ -1,9 +1,7 @@
 package com.formation.appli.bruxellesparcourbd.ui.main;
 
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +37,7 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
 
     //region Communication
     public interface AcceuilFragmentCallBack{
-        void onLoging(String userName, String password);
+        void onCLick(int id);
     }
 
     private AcceuilFragmentCallBack callback;
@@ -54,13 +52,13 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main_acceuil, container, false);
 
-        v = initView(v);
+        v = initFragment(v);
 
         return v;
     }
 
-    private View initView(View v) {
-        et_userName =(EditText) v.findViewById(R.id.et_acceuil_UserName);
+    private View initFragment(View v) {
+        et_userName =(EditText) v.findViewById(R.id.et_acceuil_email);
         et_password = (EditText) v.findViewById(R.id.et_acceuil_Password);
 
         btn_connexion = (Button) v.findViewById(R.id.btn_acceuil_connection);
@@ -76,35 +74,16 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_acceuil_connection:
-                connection();
-                break;
-            case R.id.btn_acceuil_new_user:
-                newUser();
-                break;
-        }
+        sendCallBack(view.getId());
     }
 
-    private void connection(){
-        String userName = et_userName.getText().toString();
-        String password = et_password.getText().toString();
-        sendCallBack(userName,password);
 
-    }
-
-    private void sendCallBack(String userName, String password) {
+    private void sendCallBack(int id) {
         if (callback != null){
-            callback.onLoging(userName,password);
+            callback.onCLick(id);
         }
     }
 
-    private void newUser(){
-        FragmentManager fragman = getFragmentManager();
-        FragmentTransaction fragTrans = fragman.beginTransaction();
-        FormulaireMainFragment fromFrag = new FormulaireMainFragment();
-        fragTrans.replace(R.id.fl_main_frame, fromFrag);
-        fragTrans.commit();
-    }
+
 
 }

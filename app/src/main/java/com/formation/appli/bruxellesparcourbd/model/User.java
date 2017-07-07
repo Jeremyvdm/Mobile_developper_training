@@ -15,26 +15,23 @@ public class User implements Parcelable {
     private String userName;
     private String email;
     private String password;
-    private String confirmPassword;
 
-    public User(String lastName, String firstName, String userName, String email, String password, String confirmPassword) {
+    public User(String lastName, String firstName, String userName, String email, String password) {
         this._userId = -1;
         this.lastName = lastName;
         this.firstName = firstName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
-    public User(int userID, String lastName, String firstName, String userName, String email, String password, String confirmPassword) {
+    public User(int userID, String lastName, String firstName, String userName, String email, String password) {
         this._userId = userID;
         this.lastName = lastName;
         this.firstName = firstName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
 
@@ -86,13 +83,6 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
     //endregion
 
     //region Parsable
@@ -108,7 +98,6 @@ public class User implements Parcelable {
         dest.writeString(firstName);
         dest.writeString(email);
         dest.writeString(password);
-        dest.writeString(confirmPassword);
     }
 
     protected User(Parcel in) {
@@ -118,7 +107,6 @@ public class User implements Parcelable {
         userName = in.readString();
         email = in.readString();
         password = in.readString();
-        confirmPassword = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

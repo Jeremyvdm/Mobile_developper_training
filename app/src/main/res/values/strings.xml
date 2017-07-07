@@ -46,14 +46,17 @@
     <string name="btn_parcourt_carte">afficher la carte du parcourt</string>
     <string name="btn_parcourt_liste">liste des fresques du parcourt</string>
     <string name="btn_parcourt_choose">choisir ce parcourt</string>
-    <string name="parcourt_list_fresque_view">retour</string>
 
+    <string name="btn_parcourt_retour">retour</string>
+
+    <string name="parcourt_list_fresque_view">retour</string>
 
     <string name="toast_not_same_password">les deux mots de passe ne corresponde pas veuillez inserer deux fois le même mot de passe</string>
     <string name="toast_parcourt_choisis">le parcourt à bien été sélectionner</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="auth_failed">sign in failed</string>
 
 
 </resources>

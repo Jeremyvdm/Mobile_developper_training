@@ -38,6 +38,8 @@ public class UserActivity extends AppCompatActivity implements ChoiceUserFragmen
         loadFragment(R.id.fl_user_frame, fragment);
     }
 
+
+
     private void loadFragment(int id, Fragment fragment){
         FragmentManager fragman = getSupportFragmentManager();
         FragmentTransaction fragTrans = fragman.beginTransaction();

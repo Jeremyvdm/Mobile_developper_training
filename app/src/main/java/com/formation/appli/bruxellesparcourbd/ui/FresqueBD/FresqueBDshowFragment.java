@@ -12,10 +12,10 @@ import com.formation.appli.bruxellesparcourbd.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FresqueBDshowFragmentFragment extends Fragment {
+public class FresqueBDshowFragment extends Fragment {
 
 
-    public FresqueBDshowFragmentFragment() {
+    public FresqueBDshowFragment() {
         // Required empty public constructor
     }
 

@@ -2,12 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.formation.appli.bruxellesparcourbd.ui.FresqueBD.PlayActivityFragment">
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.FresqueBD.FresqueBDPlayActivityFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        style="@style/LinearLayoutFrame">
+
+        <LinearLayout
+            style="@style/LinearLayoutButton">
+            <Button
+                android:id="@+id/btn_fresque_act_btn1"
+                style="@style/Button"
+                android:layout_marginRight="100dp"/>
+
+            <Button
+                android:id="@+id/btn_fresque_act_btn2"
+                style="@style/Button" />
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

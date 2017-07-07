@@ -1,11 +1,11 @@
-package com.formation.appli.bruxellesparcourbd.tools;
+package com.formation.appli.bruxellesparcourbd.Asynch;
 
 import android.os.AsyncTask;
 
-import com.formation.appli.bruxellesparcourbd.async.tools.InputStreamOperations;
 import com.formation.appli.bruxellesparcourbd.model.Coordonees;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
+import com.formation.appli.bruxellesparcourbd.tools.InputStreamOperations;
 
 import org.json.JSONArray;
 import org.json.JSONException;

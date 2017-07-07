@@ -10,6 +10,7 @@
         android:id="@+id/iv_fresque_act_parc_nb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         style="@style/textViewTextFrame"
         android:text="@string/tv_fresque_image"/>
@@ -23,7 +24,7 @@
             android:text="@string/tv_titre_freque"
             style="@style/textViewTextFrameMiddle"/>
         <TextView
-            android:id="@+id/tv_fresque_act_fresque_titre"
+            android:id="@+id/tv_Parcourt_fresque_det_fresque_titre"
             style="@style/textViewTextFrameMiddle"/>
     </LinearLayout>
 
@@ -33,7 +34,7 @@
             android:text="@string/tv_auteur_fresque"
             style="@style/textViewTextFrameMiddle"/>
         <TextView
-            android:id="@+id/tv_fresque_act_fresque_auteur"
+            android:id="@+id/tv_Parcourt_fresque_det_fresque_auteur"
             style="@style/textViewTextFrameMiddle"/>
     </LinearLayout>
 
@@ -43,7 +44,7 @@
             android:text="@string/tv_annee_fresque"
             style="@style/textViewTextFrameMiddle"/>
         <TextView
-            android:id="@+id/tv_fresque_act_fresque_annee"
+            android:id="@+id/tv_Parcourt_fresque_det_fresque_annee"
             style="@style/textViewTextFrameMiddle"/>
     </LinearLayout>
 
@@ -53,7 +54,7 @@
             android:text="@string/tv_fresque_longitude"
             style="@style/textViewTextFrameMiddle"/>
         <TextView
-            android:id="@+id/tv_fresque_act_fresque_longitude"
+            android:id="@+id/tv_Parcourt_fresque_det_fresque_longitude"
             style="@style/textViewTextFrameMiddle"/>
     </LinearLayout>
 
@@ -63,21 +64,16 @@
             android:text="@string/tv_fresque_latitude"
             style="@style/textViewTextFrameMiddle"/>
         <TextView
-            android:id="@+id/tv_fresque_act_fresque_latitude"
+            android:id="@+id/tv_Parcourt_fresque_det_fresque_latitude"
             style="@style/textViewTextFrameMiddle"/>
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/LinearLayoutButton">
-        <Button
-            android:id="@+id/btn_fresque_act_btn1"
-            style="@style/Button"
-            android:layout_marginRight="100dp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_fresque_act_btn2"
-            style="@style/Button" />
-    </LinearLayout>
+    </FrameLayout>
+
 
 
 </LinearLayout>

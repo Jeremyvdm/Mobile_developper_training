@@ -9,14 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
-import com.formation.appli.bruxellesparcourbd.async.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
 import com.formation.appli.bruxellesparcourbd.ui.FresqueBD.FresqueActivity;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 
-public class ParcourtActivity extends AppCompatActivity implements ParcourtChoiceFragment.ParcourtChoiceFragmentCallBack,JsonParcourtBD.JsonParcourtBDCallBack, ParcourtListFresqueBDFragment.ParcourtListFresqueBDFragmentCallback{
+public class ParcourtActivity extends AppCompatActivity implements ParcourtChoiceFragment.ParcourtChoiceFragmentCallBack,JsonParcourtBD.JsonParcourtBDCallBack, ParcourtListFresqueBDFragment.ParcourtListFresqueBDFragmentCallback, ParcourtFresqueDetailFragment.ParcourtFresqueDetailFragmentCallBack{
 
     private Bundle extra;
     private ParcourtBD parcourtBdChoisi;
@@ -131,14 +131,23 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
 
     @Override
     public void parcourt() {
-        Toast.makeText(this,getString(R.string.toast_parcourt_choisis),Toast.LENGTH_LONG);
+        Toast.makeText(this,"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public void onListClick(String titre, FresqueBD bd) {
-        Intent fresqueBDIntent = new Intent(this, FresqueActivity.class);
-        fresqueBDIntent.putExtra(TITREFRESQUE,titre);
-        fresqueBDIntent.putExtra(BD_CHOISIS,bd);
-        startActivity(fresqueBDIntent);
+        Bundle fresqueBD = new Bundle();
+        fresqueBD.putParcelable(BD_CHOISIS,bd);
+        String imageURL = bd.getRessourceImage();
+        ParcourtFresqueDetailFragment detailFragment = new ParcourtFresqueDetailFragment();
+        detailFragment.setArguments(fresqueBD);
+        loadFragment(R.id.fl_parcourt_frame,detailFragment);
+    }
+
+    @Override
+    public void retour() {
+        loadListe();
     }
 }
