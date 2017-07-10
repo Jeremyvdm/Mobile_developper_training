@@ -10,22 +10,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
+import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 
-public class ParcourtFresqueDetailFragment extends Fragment {
+public class ParcourtFresqueDetailFragment extends Fragment implements JsonParcourtBD.JsonParcourtBDCallBack{
 
     private Bundle extra;
 
     private int numeroParcourt;
+    private ArrayList<FresqueBD> parcourFresqueBd;
+    private String titreFresque;
     private String imageRessourceURL;
 
     private FresqueBD fresquebdchoisie;
@@ -52,6 +58,7 @@ public class ParcourtFresqueDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        initParcourt();
         View v =  inflater.inflate(R.layout.fragment_parcourt_fresque_detail, container, false);
         v = initFragment(v);
 
@@ -76,17 +83,13 @@ public class ParcourtFresqueDetailFragment extends Fragment {
         void retour();
     }
 
-    private ParcourtFresqueDetailFragment.ParcourtFresqueDetailFragmentCallBack callback;
+    private ParcourtFresqueDetailFragmentCallBack callback;
     public void setcallback(ParcourtActivity callback){
-        this.callback = (ParcourtFresqueDetailFragmentCallBack) callback;
+        this.callback =  callback;
     }
     //endregion
 
     private View initFragment(View v){
-        extra = this.getArguments();
-        fresquebdchoisie = extra.getParcelable(ParcourtActivity.BD_CHOISIS);
-        numeroParcourt = extra.getInt(ParcourtActivity.PARCOURT_BD_CHOISIS);
-        imageRessourceURL = fresquebdchoisie.getRessourceImage();
 
         tv_fresque_titre = (TextView) v.findViewById(R.id.tv_Parcourt_fresque_det_fresque_titre);
         tv_fresque_auteur = (TextView) v.findViewById(R.id.tv_Parcourt_fresque_det_fresque_auteur);
@@ -116,6 +119,24 @@ public class ParcourtFresqueDetailFragment extends Fragment {
         });
 
         return v;
+
+    }
+
+    private void initParcourt(){
+        extra = this.getArguments();
+        numeroParcourt = extra.getInt(UserActivity.NUMERODEPARCOURT);
+        titreFresque = extra.getString(ParcourtActivity.TITREFRESQUE);
+        JsonParcourtBD parcourJson= new JsonParcourtBD();
+        parcourJson.setCallback(this);
+        parcourJson.execute(numeroParcourt);
+        parcourFresqueBd = parcourJson.getArrayFresque();
+
+        for(int i=0;i<parcourFresqueBd.size();i++){
+            String titreFresqueI = parcourFresqueBd.get(i).getTitre();
+            if(titreFresqueI == titreFresque){
+                fresquebdchoisie = parcourFresqueBd.get(i);
+            }
+        }
 
     }
 
@@ -150,6 +171,11 @@ public class ParcourtFresqueDetailFragment extends Fragment {
 
         return imageurl;
 
+    }
+
+    @Override
+    public void parcourt() {
+        Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
     }
 
     public Bitmap getImageBitmap(){

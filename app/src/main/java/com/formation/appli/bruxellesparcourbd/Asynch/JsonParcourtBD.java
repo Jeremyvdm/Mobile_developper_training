@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.formation.appli.bruxellesparcourbd.model.Coordonees;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
-import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
 import com.formation.appli.bruxellesparcourbd.tools.InputStreamOperations;
 
 import org.json.JSONArray;
@@ -29,6 +28,9 @@ public class
 JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
     private ArrayList<FresqueBD> parcourtBDJson;
+    private ArrayList<String> listFresqueBd;
+    private int debut;
+    private int fin;
 
     //region Callback
     public interface JsonParcourtBDCallBack {
@@ -49,7 +51,9 @@ JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
     @Override
     protected ArrayList<FresqueBD> doInBackground(Integer... integers) {
         parcourtBDJson = new ArrayList<>();
-        String bxlParcourtBDURL = URLBASE_PARCOURT_BD + URL_PARCOURT_START + integers[0] + "&" + URL_PARCOURT_STOP + integers[1];
+        int idParcourt = integers[0];
+        initParcourt(idParcourt);
+        String bxlParcourtBDURL = URLBASE_PARCOURT_BD + URL_PARCOURT_START + debut + "&" + URL_PARCOURT_STOP + fin;
 
         JSONObject parcourtJson = resuqestJson(bxlParcourtBDURL);
 
@@ -121,8 +125,47 @@ JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
     }
 
-    public ParcourtBD getParcourt(){
-        return new ParcourtBD(parcourtBDJson);
+    public ArrayList<FresqueBD> getArrayFresque(){
+        return parcourtBDJson;
+    }
+
+    public ArrayList<String> ListParcourtFresqueBd(){
+        listFresqueBd = new ArrayList<>();
+        for (int i=0; i<parcourtBDJson.size();i++){
+            FresqueBD bd = parcourtBDJson.get(i);
+            String titre = bd.getTitre();
+            listFresqueBd.add(titre);
+        }
+        return listFresqueBd;
+    }
+
+    public void initParcourt(int idParcourt){
+        switch (idParcourt){
+            case 1:
+                debut = 0;
+                fin = 10;
+                break;
+            case 2:
+                debut = 10;
+                fin = 20;
+                break;
+            case 3:
+                debut = 20;
+                fin = 30;
+                break;
+            case 4:
+                debut = 30;
+                fin = 40;
+                break;
+            case 5:
+                debut = 40;
+                fin = 52;
+                break;
+            case 6:
+                debut = 0;
+                fin = 52;
+                break;
+        }
     }
 
 }

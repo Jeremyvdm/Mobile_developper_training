@@ -4,10 +4,21 @@
     android:layout_height="match_parent"
     tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtCarteFragment">
 
-    <TextView
-        style="@style/textViewTextFrame"
-        android:text="@string/parcourt_map_fragment" />
+    <RelativeLayout
+        style="@style/LinearLayoutFrame">
 
+        <FrameLayout
+            android:id="@+id/fl_parcourt_frame_maps"
+            android:layout_width="match_parent"
+            android:layout_height="350dp">
+
+        </FrameLayout>
+
+        <Button
+            style="@style/Button2"
+            android:id="@+id/btn_parcourt_maps_retour"
+            android:layout_below="@+id/fl_parcourt_frame_maps"/>
+    </RelativeLayout>
 
 
 

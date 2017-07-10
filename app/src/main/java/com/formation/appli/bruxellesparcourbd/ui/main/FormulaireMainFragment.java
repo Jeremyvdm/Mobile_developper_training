@@ -82,8 +82,6 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
         btn_confirm_info = (Button) v.findViewById(R.id.btn_formulaire_confirm);
         btn_continue = (Button) v.findViewById(R.id.btn_formulaire_continue);
 
-        //btn_continue.setEnabled(false);
-        //btn_confirm_info.setEnabled(false);
 
         btn_continue.setOnClickListener(this);
         btn_confirm_info.setOnClickListener(this);

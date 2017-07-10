@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         switch (id){
             case R.id.btn_acceuil_connection:
                 connection();
-                Button continueUserAct = (Button) findViewById(R.id.btn_acceuil_continue);
-                continueUserAct.setEnabled(true);
                 break;
             case R.id.btn_acceuil_new_user:
                 loadFormulaire();
@@ -96,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         switch (id){
             case R.id.btn_formulaire_confirm:
                 onConfirm();
-                Button continueButton = (Button) findViewById(R.id.btn_formulaire_continue);
-                continueButton.setEnabled(true);
                 break;
             case R.id.btn_formulaire_continue:
                 Start_user_activity(userName);
@@ -119,12 +114,6 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         String email = et_email.getText().toString().trim();
         String password = et_password.getText().toString().trim();
 
-
-        Log.d(TAG, "signIn:" + email);
-        if (!validateForm(R.id.et_acceuil_email,R.id.et_acceuil_Password)) {
-            return;
-        }
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -138,14 +127,13 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_failed,
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(-1,null);
+                            updateUI(null);
                         }
                         else{
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_succeed,
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            int id = R.id.btn_acceuil_continue;
-                            updateUI(id,user);
+                            updateUI(user);
                         }
                     }
                 });
@@ -156,11 +144,6 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         EditText et_password = (EditText) findViewById(R.id.et_formulaire_password);
         String email = et_email.getText().toString().trim();
         String password = et_password.getText().toString().trim();
-
-        Log.d(TAG, "createAccount:" + email);
-        if (!validateForm(R.id.et_formulaire_email,R.id.et_formulaire_password)) {
-            return;
-        }
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -176,14 +159,14 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
                             Log.w(TAG, "createdUserWithEmail:failed", task.getException());
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_failed,
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(-1,null);
                         }else{
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_creation_succeed,
                                     Toast.LENGTH_SHORT).show();
                             sendEmailVerification();
-                            FirebaseUser user = mAuth.getCurrentUser();
                             int id = R.id.btn_formulaire_continue;
-                            updateUI(id,user);
+                            Button btn_continue = (Button) findViewById(R.id.btn_formulaire_continue);
+                            btn_continue.setEnabled(true);
+
                         }
 
                     }
@@ -208,30 +191,6 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         Intent userIntent = new Intent(this,UserActivity.class);
         userIntent.putExtra(UserDAO.COLUMN_USER_NAME,userName);
         startActivity(userIntent);
-    }
-
-    private boolean validateForm(int idEmail,int idPassword) {
-        boolean valid = true;
-        EditText et_email = (EditText) findViewById(idEmail);
-        EditText et_password = (EditText) findViewById(idPassword);
-
-        String email = et_email.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            et_email.setError(getText(R.string.required_field));
-            valid = false;
-        } else {
-            et_email.setError(null);
-        }
-
-        String password = et_password.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            et_password.setError(getText(R.string.required_field));
-            valid = false;
-        } else {
-            et_password.setError(null);
-        }
-
-        return valid;
     }
 
     //region fireBase
@@ -262,33 +221,26 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         // [END send_email_verification]
     }
 
-    private void updateUI(int id, FirebaseUser currentUser) {
-        if(id == R.id.btn_acceuil_continue){
-            TextView tv_log_Status = (TextView) findViewById(R.id.tv_acceuil_log_Status);
-            TextView tv_log_Detail = (TextView) findViewById(R.id.tv_acceuil_log_Detail);
+    private void updateUI( FirebaseUser currentUser) {
 
-            Button btn_continue = (Button) findViewById(id);
-            btn_continue.setEnabled(true);
+        TextView tv_log_Status = (TextView) findViewById(R.id.tv_acceuil_log_Status);
+        TextView tv_log_Detail = (TextView) findViewById(R.id.tv_acceuil_log_Detail);
+        Button btn_continue = (Button) findViewById(R.id.btn_acceuil_continue);
 
-            if (currentUser != null) {
-                tv_log_Status.setText(getString(R.string.emailpassword_status_fmt,
-                        currentUser.getEmail(), currentUser.isEmailVerified()));
-                tv_log_Detail.setText(getString(R.string.firebase_status_fmt, currentUser.getUid()));
 
-                findViewById(id).setEnabled(currentUser.isEmailVerified());
+        if (currentUser != null) {
+            tv_log_Status.setText(getString(R.string.emailpassword_status_fmt,
+                    currentUser.getEmail(), currentUser.isEmailVerified()));
+            tv_log_Detail.setText(getString(R.string.firebase_status_fmt, currentUser.getUid()));
+            btn_continue.setEnabled(currentUser.isEmailVerified());
 
-            } else {
-                tv_log_Status.setText(R.string.signed_out);
-                tv_log_Detail.setText(null);
-
-            }
-        }else{
-            if (currentUser != null) {
-                findViewById(id).setEnabled(currentUser.isEmailVerified());
-
-            }
+        } else {
+            tv_log_Status.setText(R.string.signed_out);
+            tv_log_Detail.setText(null);
 
         }
+
+
 
     }
 

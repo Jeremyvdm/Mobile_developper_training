@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
@@ -20,13 +22,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ParcourtListFresqueBDFragment extends Fragment {
+public class ParcourtListFresqueBDFragment extends Fragment implements JsonParcourtBD.JsonParcourtBDCallBack{
 
     private ParcourtBD parcourtBD;
     private FresqueBD fresqueBD;
     private int numéroParcourChoisi;
     private ListView lvFresqueBdList;
     ArrayList<String> titre;
+    ArrayList<FresqueBD> parcourFresqueBd;
     Bundle bdBundle;
 
 
@@ -47,7 +50,7 @@ public class ParcourtListFresqueBDFragment extends Fragment {
 
     //region Communication
     public interface ParcourtListFresqueBDFragmentCallback {
-        void onListClick(String titre,FresqueBD bd);
+        void onListClick(String titre,int numéroParcourt);
     }
 
     private ParcourtListFresqueBDFragmentCallback callback;
@@ -94,26 +97,26 @@ public class ParcourtListFresqueBDFragment extends Fragment {
     private void envoyerCallback(String titre) {
         if (callback != null) {
             ArrayList<FresqueBD> parcourtBDList = parcourtBD.getParcourtFresqueBD();
-            for(int i=0;i<parcourtBDList.size();i++){
-                String titrefresqueI = parcourtBDList.get(i).getTitre();
-                if(titre==titrefresqueI)
-                    fresqueBD = parcourtBDList.get(i);
-            }
-            callback.onListClick(titre,fresqueBD);
+            callback.onListClick(titre,numéroParcourChoisi);
         }
     }
 
     private void initParcourt(){
         titre = new ArrayList<>();
+        parcourFresqueBd = new ArrayList<>();
         bdBundle = this.getArguments();
-        parcourtBD = bdBundle.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
         numéroParcourChoisi = bdBundle.getInt(UserActivity.NUMERODEPARCOURT);
-        ArrayList<FresqueBD> parcourtBDList = parcourtBD.getParcourtFresqueBD();
-        for(int i=0; i<parcourtBDList.size(); i ++){
-            FresqueBD fresqueBD = parcourtBDList.get(i);
-            String titreFresque = fresqueBD.getTitre();
-            titre.add(titreFresque);
-        }
+        JsonParcourtBD parcourJson= new JsonParcourtBD();
+        parcourJson.setCallback(this);
+        parcourJson.execute(numéroParcourChoisi);
+        parcourFresqueBd = parcourJson.getArrayFresque();
+        titre = parcourJson.ListParcourtFresqueBd();
+
+    }
+
+    @Override
+    public void parcourt() {
+        Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
     }
 
 }

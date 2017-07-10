@@ -79,7 +79,6 @@ public class UserActivity extends AppCompatActivity implements ChoiceUserFragmen
 
     private void loadParcourtActivity(){
         int parcourtNumber = 6;
-        initParcourtJson(parcourtNumber);
         Intent parcourtIntent = new Intent(this, ParcourtActivity.class);
         parcourtIntent.putExtra(NUMERODEPARCOURT,parcourtNumber);
         startActivity(parcourtIntent);
@@ -87,42 +86,11 @@ public class UserActivity extends AppCompatActivity implements ChoiceUserFragmen
 
     @Override
     public void parcourtActivity(int parcourtNumber) {
-        initParcourtJson(parcourtNumber);
         Intent parcourtIntent = new Intent(this, ParcourtActivity.class);
         parcourtIntent.putExtra(NUMERODEPARCOURT,parcourtNumber);
-        parcourtIntent.putExtra(PARCOURTDEBUT,debut);
-        parcourtIntent.putExtra(PARCOURTFIN,fin);
         startActivity(parcourtIntent);
     }
 
-    private void initParcourtJson(int parcourtNumber){
-        switch (parcourtNumber){
-            case 1:
-                debut = 0;
-                fin = 10;
-                break;
-            case 2:
-                debut = 10;
-                fin = 20;
-                break;
-            case 3:
-                debut = 20;
-                fin = 30;
-                break;
-            case 4:
-                debut = 30;
-                fin = 40;
-                break;
-            case 5:
-                debut = 40;
-                fin = 52;
-                break;
-            case 6:
-                debut = 0;
-                fin = 52;
-                break;
-        }
-    }
 
 
 }
