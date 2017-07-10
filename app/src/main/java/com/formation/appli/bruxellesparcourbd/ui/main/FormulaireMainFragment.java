@@ -1,6 +1,7 @@
 package com.formation.appli.bruxellesparcourbd.ui.main;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import com.formation.appli.bruxellesparcourbd.model.User;
 
 
 public class FormulaireMainFragment extends Fragment implements View.OnClickListener{
+    public static View vFormulaire;
     private EditText et_lastName;
     private EditText et_firstName;
     private EditText et_userName;
@@ -44,7 +46,7 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
 
     //region Communication
     public interface FormulaireFragmentCallBack{
-        void onClickFormulaire(int id,String email, String password);
+        void onClickFormulaire(int id, String userName);
     }
 
     private FormulaireMainFragment.FormulaireFragmentCallBack callback;
@@ -53,29 +55,35 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
     }
     //endregion
 
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        vFormulaire = initFragment(vFormulaire);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_main_formulaire, container, false);
+        vFormulaire = inflater.inflate(R.layout.fragment_main_formulaire, container, false);
 
-        v = initView(v);
-
-        return v;
+        return vFormulaire;
     }
 
-    private View initView(View v){
-        et_lastName = v.findViewById(R.id.et_formulaire_Last_name);
-        et_firstName = v.findViewById(R.id.et_formulaire_first_name);
-        et_userName = v.findViewById(R.id.et_formulaire_user_name);
-        et_email = v.findViewById(R.id.et_formulaire_email);
-        et_password = v.findViewById(R.id.et_formulaire_password);
+    private View initFragment(View v){
+        et_lastName = (EditText) v.findViewById(R.id.et_formulaire_Last_name);
+        et_firstName = (EditText) v.findViewById(R.id.et_formulaire_first_name);
+        et_userName = (EditText) v.findViewById(R.id.et_formulaire_user_name);
+        et_email = (EditText) v.findViewById(R.id.et_formulaire_email);
+        et_password = (EditText) v.findViewById(R.id.et_formulaire_password);
 
-        btn_confirm_info = v.findViewById(R.id.btn_formulaire_confirm);
-        btn_continue = v.findViewById(R.id.btn_acceuil_continue);
+        btn_confirm_info = (Button) v.findViewById(R.id.btn_formulaire_confirm);
+        btn_continue = (Button) v.findViewById(R.id.btn_formulaire_continue);
 
-        btn_continue.setEnabled(false);
-        btn_confirm_info.setEnabled(false);
+        //btn_continue.setEnabled(false);
+        //btn_confirm_info.setEnabled(false);
 
         btn_continue.setOnClickListener(this);
         btn_confirm_info.setOnClickListener(this);
@@ -115,9 +123,8 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
 
     private void sendCallBack(int id,User user) {
         if(callback!=null){
-            String email = user.getEmail();
-            String password = user.getPassword();
-            callback.onClickFormulaire(id,email,password);
+            String userName = user.getUserName();
+            callback.onClickFormulaire(id, userName);
         }
     }
 

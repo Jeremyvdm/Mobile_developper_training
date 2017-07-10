@@ -86,6 +86,7 @@
             <Button
                 android:id="@+id/btn_formulaire_confirm"
                 android:text="@string/btn_confirm_information"
+                android:enabled="false"
                 style="@style/Button"/>
             <View
                 android:layout_width="wrap_content"
@@ -96,6 +97,7 @@
                 android:id="@+id/btn_formulaire_continue"
                 android:text="@string/btn_continue"
                 style="@style/Button"
+                android:enabled="false"
                 android:layout_below="@+id/sv_main_act_frag_formulaire"/>
         </LinearLayout>
 

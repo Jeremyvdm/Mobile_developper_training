@@ -1,6 +1,7 @@
 package com.formation.appli.bruxellesparcourbd.ui.main;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.formation.appli.bruxellesparcourbd.R;
 
 
 public class AcceuilMainFragment extends Fragment implements View.OnClickListener{
+
+    public static View vAcceuil;
 
     private EditText et_email;
     private EditText et_password;
@@ -38,7 +41,7 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
 
     //region Communication
     public interface AcceuilFragmentCallBack{
-        void onCLickChoice(int id, String email,String password);
+        void onCLickChoice(int id, String userName);
     }
 
     private AcceuilFragmentCallBack callback;
@@ -48,14 +51,19 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
     //endregion
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+            vAcceuil = initFragment(vAcceuil);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_main_acceuil, container, false);
+        vAcceuil = inflater.inflate(R.layout.fragment_main_acceuil, container, false);
 
-        v = initFragment(v);
-
-        return v;
+        return vAcceuil;
     }
 
     private View initFragment(View v) {
@@ -82,10 +90,9 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
 
 
     private void sendCallBack(int id) {
+        String userName = et_email.getText().toString().trim();
         if (callback != null){
-            String email = et_email.getText().toString().trim();
-            String password = et_password.getText().toString().trim();
-            callback.onCLickChoice(id,email,password);
+            callback.onCLickChoice(id,userName);
         }
     }
 

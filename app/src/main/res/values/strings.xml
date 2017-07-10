@@ -59,6 +59,14 @@
 
     <string name="firebase_auth_creation_succeed">création d\'un nouvel utilisateur réussie</string>
     <string name="firebase_auth_succeed">connection réussie!</string>
+    <string name="FireBaseVerification_email_sent">Email envoyé</string>
+    <string name="FireBasefailed_verification_email_sending">Email non envoyé</string>
+
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="firebase_status_fmt">SecurityAsset User: %s</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="required_field">Required field</string>
+
 
 
 </resources>

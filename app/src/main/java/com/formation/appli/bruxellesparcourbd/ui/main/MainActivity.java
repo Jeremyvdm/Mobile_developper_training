@@ -1,17 +1,20 @@
 package com.formation.appli.bruxellesparcourbd.ui.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.formation.appli.bruxellesparcourbd.DB.UserDAO;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,15 +29,26 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private Button btn_conexion;
-    private Button et_main_password;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initFirebase();
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
         initFragment();
     }
     //region on start on stop firebase custom made
@@ -61,28 +75,33 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
 
 
     @Override
-    public void onCLickChoice(int id,String email, String password) {
+    public void onCLickChoice(int id, String userName) {
         switch (id){
             case R.id.btn_acceuil_connection:
-                connection(email,password);
+                connection();
+                Button continueUserAct = (Button) findViewById(R.id.btn_acceuil_continue);
+                continueUserAct.setEnabled(true);
                 break;
             case R.id.btn_acceuil_new_user:
                 loadFormulaire();
                 break;
             case R.id.btn_acceuil_continue:
-                Start_user_activity();
+                Start_user_activity(userName);
                 break;
         }
     }
 
     @Override
-    public void onClickFormulaire(int id, String email, String password) {
+    public void onClickFormulaire(int id, String userName) {
         switch (id){
             case R.id.btn_formulaire_confirm:
-                onConfirm(email,password);
+                onConfirm();
+                Button continueButton = (Button) findViewById(R.id.btn_formulaire_continue);
+                continueButton.setEnabled(true);
                 break;
             case R.id.btn_formulaire_continue:
-                Start_user_activity();
+                Start_user_activity(userName);
+                break;
         }
     }
 
@@ -93,7 +112,19 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
     }
 
     //region firebase new user connection
-    public void connection(String email, String password){
+    public void connection(){
+
+        EditText et_email = (EditText) findViewById(R.id.et_acceuil_email);
+        EditText et_password = (EditText) findViewById(R.id.et_acceuil_Password);
+        String email = et_email.getText().toString().trim();
+        String password = et_password.getText().toString().trim();
+
+
+        Log.d(TAG, "signIn:" + email);
+        if (!validateForm(R.id.et_acceuil_email,R.id.et_acceuil_Password)) {
+            return;
+        }
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -104,18 +135,33 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                            updateUI(-1,null);
                         }
                         else{
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_succeed,
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            int id = R.id.btn_acceuil_continue;
+                            updateUI(id,user);
                         }
                     }
                 });
     }
 
-    public void onConfirm(String email,String password) {
+    public void onConfirm() {
+        EditText et_email = (EditText) findViewById(R.id.et_formulaire_email);
+        EditText et_password = (EditText) findViewById(R.id.et_formulaire_password);
+        String email = et_email.getText().toString().trim();
+        String password = et_password.getText().toString().trim();
+
+        Log.d(TAG, "createAccount:" + email);
+        if (!validateForm(R.id.et_formulaire_email,R.id.et_formulaire_password)) {
+            return;
+        }
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -125,12 +171,19 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
+
                         if (!task.isSuccessful()) {
+                            Log.w(TAG, "createdUserWithEmail:failed", task.getException());
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                            updateUI(-1,null);
                         }else{
                             Toast.makeText(MainActivity.this, R.string.firebase_auth_creation_succeed,
                                     Toast.LENGTH_SHORT).show();
+                            sendEmailVerification();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            int id = R.id.btn_formulaire_continue;
+                            updateUI(id,user);
                         }
 
                     }
@@ -151,43 +204,94 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         fragTrans.commit();
     }
 
-    private void Start_user_activity(){
+    private void Start_user_activity(String userName){
         Intent userIntent = new Intent(this,UserActivity.class);
+        userIntent.putExtra(UserDAO.COLUMN_USER_NAME,userName);
         startActivity(userIntent);
     }
 
-    //region fireBase
-    private void initFirebase(){
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
-    }
+    private boolean validateForm(int idEmail,int idPassword) {
+        boolean valid = true;
+        EditText et_email = (EditText) findViewById(idEmail);
+        EditText et_password = (EditText) findViewById(idPassword);
 
-
-    private void FireBaseGettingIformation(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-            Uri photoUrl = user.getPhotoUrl();
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getToken() instead.
-            String uid = user.getUid();
+        String email = et_email.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            et_email.setError(getText(R.string.required_field));
+            valid = false;
+        } else {
+            et_email.setError(null);
         }
+
+        String password = et_password.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            et_password.setError(getText(R.string.required_field));
+            valid = false;
+        } else {
+            et_password.setError(null);
+        }
+
+        return valid;
     }
+
+    //region fireBase
+    private void sendEmailVerification() {
+        // [START send_email_verification]
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // [START_EXCLUDE]
+                        // Re-enable button
+
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(MainActivity.this,
+                                    getString(R.string.FireBaseVerification_email_sent) + user.getEmail() + "\n please validate your account",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Toast.makeText(MainActivity.this,
+                                    R.string.FireBasefailed_verification_email_sending,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END send_email_verification]
+    }
+
+    private void updateUI(int id, FirebaseUser currentUser) {
+        if(id == R.id.btn_acceuil_continue){
+            TextView tv_log_Status = (TextView) findViewById(R.id.tv_acceuil_log_Status);
+            TextView tv_log_Detail = (TextView) findViewById(R.id.tv_acceuil_log_Detail);
+
+            Button btn_continue = (Button) findViewById(id);
+            btn_continue.setEnabled(true);
+
+            if (currentUser != null) {
+                tv_log_Status.setText(getString(R.string.emailpassword_status_fmt,
+                        currentUser.getEmail(), currentUser.isEmailVerified()));
+                tv_log_Detail.setText(getString(R.string.firebase_status_fmt, currentUser.getUid()));
+
+                findViewById(id).setEnabled(currentUser.isEmailVerified());
+
+            } else {
+                tv_log_Status.setText(R.string.signed_out);
+                tv_log_Detail.setText(null);
+
+            }
+        }else{
+            if (currentUser != null) {
+                findViewById(id).setEnabled(currentUser.isEmailVerified());
+
+            }
+
+        }
+
+    }
+
+
     //endregion
 }
