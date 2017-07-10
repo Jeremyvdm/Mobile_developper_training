@@ -14,7 +14,7 @@ import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.User;
 
 
-public class FormulaireMainFragment extends Fragment{
+public class FormulaireMainFragment extends Fragment implements View.OnClickListener{
     private EditText et_lastName;
     private EditText et_firstName;
     private EditText et_userName;
@@ -22,6 +22,7 @@ public class FormulaireMainFragment extends Fragment{
     private EditText et_password;
 
     private Button btn_confirm_info;
+    private Button btn_continue;
 
     private User newGreatUser;
 
@@ -43,7 +44,7 @@ public class FormulaireMainFragment extends Fragment{
 
     //region Communication
     public interface FormulaireFragmentCallBack{
-        void onConfirm(User NewUser);
+        void onClickFormulaire(int id,String email, String password);
     }
 
     private FormulaireMainFragment.FormulaireFragmentCallBack callback;
@@ -71,7 +72,13 @@ public class FormulaireMainFragment extends Fragment{
         et_password = v.findViewById(R.id.et_formulaire_password);
 
         btn_confirm_info = v.findViewById(R.id.btn_formulaire_confirm);
+        btn_continue = v.findViewById(R.id.btn_acceuil_continue);
+
+        btn_continue.setEnabled(false);
         btn_confirm_info.setEnabled(false);
+
+        btn_continue.setOnClickListener(this);
+        btn_confirm_info.setOnClickListener(this);
 
         et_password.addTextChangedListener(new TextWatcher() {
             @Override
@@ -86,31 +93,32 @@ public class FormulaireMainFragment extends Fragment{
             }
         });
 
-        btn_confirm_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                newGreatUser  = newUser();
-                sendCallBack(newGreatUser);
-            }
-        });
-
-
 
         return v;
     }
 
     private User newUser(){
-        String lastName = et_lastName.getText().toString();
-        String firstName = et_firstName.getText().toString();
-        String userName = et_userName.getText().toString();
-        String email = et_email.getText().toString();
-        String password = et_password.getText().toString();
-        User user = new User(lastName,firstName,userName,email,password);
-        return user;
+        String lastName = et_lastName.getText().toString().trim();
+        String firstName = et_firstName.getText().toString().trim();
+        String userName = et_userName.getText().toString().trim();
+        String email = et_email.getText().toString().trim();
+        String password = et_password.getText().toString().trim();
+        User u = new User(lastName,firstName,userName,email,password);
+        return u;
     }
 
-    private void sendCallBack(User user) {
-        callback.onConfirm(user);
+    @Override
+    public void onClick(View view) {
+        newGreatUser = newUser();
+        sendCallBack(view.getId(),newGreatUser);
+    }
+
+    private void sendCallBack(int id,User user) {
+        if(callback!=null){
+            String email = user.getEmail();
+            String password = user.getPassword();
+            callback.onClickFormulaire(id,email,password);
+        }
     }
 
 }

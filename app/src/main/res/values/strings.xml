@@ -27,7 +27,8 @@
 
     <string name="btn_connection">Connection</string>
     <string name="btn_nouvel_utilisateur">Nouvel Utilisateur</string>
-    <string name="btn_confirm_information">Confirmer les informations</string>
+    <string name="btn_confirm_information">confirmer</string>
+    <string name="btn_continue">continuer</string>
 
     <string name="btn_user_choice_choix_parcourt">Choisir un parcourt</string>
     <string name="btn_user_choice_accès_db">Accèder à la base de donnée</string>
@@ -54,9 +55,10 @@
     <string name="toast_not_same_password">les deux mots de passe ne corresponde pas veuillez inserer deux fois le même mot de passe</string>
     <string name="toast_parcourt_choisis">le parcourt à bien été sélectionner</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="auth_failed">sign in failed</string>
+    <string name="firebase_auth_failed">connection a échouer veillez réessayer plus tard!</string>
+
+    <string name="firebase_auth_creation_succeed">création d\'un nouvel utilisateur réussie</string>
+    <string name="firebase_auth_succeed">connection réussie!</string>
 
 
 </resources>

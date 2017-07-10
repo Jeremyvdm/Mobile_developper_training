@@ -156,5 +156,4 @@ public class ParcourtFresqueDetailFragment extends Fragment {
         return imageBitmap;
     }
 
-
 }
