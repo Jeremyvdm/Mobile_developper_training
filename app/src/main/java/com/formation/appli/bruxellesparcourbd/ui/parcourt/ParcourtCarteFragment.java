@@ -6,14 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
+import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
+import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
+
+import java.util.ArrayList;
 
 
-public class ParcourtCarteFragment extends Fragment {
+public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.JsonParcourtBDCallBack{
 
     private Bundle extra;
     private Button ButtonRetour;
+    private FrameLayout frL_maps;
+    private ArrayList<FresqueBD> parcourFresqueBd;
+    private int numéroParcourChoisi;
 
 
     public ParcourtCarteFragment() {
@@ -54,11 +64,18 @@ public class ParcourtCarteFragment extends Fragment {
     }
 
     private void initParcourt(){
-
+        parcourFresqueBd = new ArrayList<>();
+        extra = this.getArguments();
+        numéroParcourChoisi = extra.getInt(UserActivity.NUMERODEPARCOURT);
+        JsonParcourtBD parcourJson= new JsonParcourtBD();
+        parcourJson.setCallback(this);
+        parcourJson.execute(numéroParcourChoisi);
+        parcourFresqueBd = parcourJson.getArrayFresque();
     }
 
     private View initFragment(View v){
         ButtonRetour = (Button) v.findViewById(R.id.btn_parcourt_maps_retour);
+        frL_maps = (FrameLayout) v.findViewById(R.id.fl_parcourt_frame_maps);
         ButtonRetour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,5 +89,10 @@ public class ParcourtCarteFragment extends Fragment {
         if(callback !=null){
             callback.retourMenu();
         }
+    }
+
+    @Override
+    public void parcourt() {
+        Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
     }
 }
