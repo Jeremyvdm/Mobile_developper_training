@@ -11,6 +11,8 @@
     <string name="parcourt_map_fragment">Voici la carte général du parcourt</string>
     <string name="parcourt_list_fresque">voici la liste des fresques que vous aller trouver dans le parcourt</string>
 
+    <string name="et_userName_example">jvblinc182@hotmail.com</string>
+
     <string name="tv_user_name">User Name</string>
     <string name="tv_password">Mot de Passe</string>
     <string name="tv_Last_name">Nom</string>

@@ -59,10 +59,12 @@
 
                     <TextView
                         style="@style/textViewTextFrameMiddle"
-                        android:text="@string/tv_email"/>
+                        android:text="@string/tv_email" />
                     <EditText
                         android:id="@+id/et_formulaire_email"
-                        style="@style/edithTextFrameMiddle" />
+                        style="@style/edithTextFrameMiddle"
+                        android:hint="@string/et_userName_example"
+                        android:inputType="textEmailAddress"/>
 
                 </LinearLayout>
 
@@ -74,7 +76,8 @@
                         android:text="@string/tv_password"/>
                     <EditText
                         android:id="@+id/et_formulaire_password"
-                        style="@style/edithTextFrameMiddle" />
+                        style="@style/edithTextFrameMiddle"
+                        android:inputType="textPassword"/>
 
                 </LinearLayout>
             </LinearLayout>

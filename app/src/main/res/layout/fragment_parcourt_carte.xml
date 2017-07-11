@@ -7,17 +7,18 @@
     <RelativeLayout
         style="@style/LinearLayoutFrame">
 
-        <FrameLayout
-            android:id="@+id/fl_parcourt_frame_maps"
+        <fragment
+            android:id="@+id/fr_parcourt_frame_maps"
             android:layout_width="match_parent"
             android:layout_height="350dp">
 
-        </FrameLayout>
+        </fragment>
 
         <Button
             style="@style/Button2"
+            android:text="@string/btn_parcourt_retour"
             android:id="@+id/btn_parcourt_maps_retour"
-            android:layout_below="@+id/fl_parcourt_frame_maps"/>
+            android:layout_below="@+id/fr_parcourt_frame_maps"/>
     </RelativeLayout>
 
 

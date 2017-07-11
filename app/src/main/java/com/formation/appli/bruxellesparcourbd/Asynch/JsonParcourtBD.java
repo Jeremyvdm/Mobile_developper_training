@@ -1,6 +1,7 @@
 package com.formation.appli.bruxellesparcourbd.Asynch;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.formation.appli.bruxellesparcourbd.model.Coordonees;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
@@ -28,13 +29,12 @@ public class
 JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
     private ArrayList<FresqueBD> parcourtBDJson;
-    private ArrayList<String> listFresqueBd;
     private int debut;
     private int fin;
 
     //region Callback
     public interface JsonParcourtBDCallBack {
-        void parcourt();
+        void parcourt( ArrayList<FresqueBD> parcourtFresqueJson);
     }
 
     private JsonParcourtBDCallBack callback;
@@ -49,27 +49,22 @@ JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
     private static final String URL_PARCOURT_STOP = "stop=";
 
     @Override
+    protected void onPostExecute(ArrayList<FresqueBD> fresqueBDs) {
+        if(callback!=null){
+            callback.parcourt(parcourtBDJson);
+        }
+    }
+
+    @Override
     protected ArrayList<FresqueBD> doInBackground(Integer... integers) {
         parcourtBDJson = new ArrayList<>();
         int idParcourt = integers[0];
         initParcourt(idParcourt);
         String bxlParcourtBDURL = URLBASE_PARCOURT_BD + URL_PARCOURT_START + debut + "&" + URL_PARCOURT_STOP + fin;
-
+        Log.v("TEST_URI_API",bxlParcourtBDURL);
         JSONObject parcourtJson = resuqestJson(bxlParcourtBDURL);
-
-        try {
-
-            JSONArray parcourtJsonArray = parcourtJson.getJSONArray("records");
-            int lenghtParcourtJson = parcourtJsonArray.length();
-            for(int i =0; i < lenghtParcourtJson;i++){
-                String fresquebdUrl = parcourtJsonArray.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
-                JSONObject jsonFresqueBD = resuqestJson(fresquebdUrl);
-                FresqueBD fresqueBD = convertJsonToFresque(jsonFresqueBD);
-                parcourtBDJson.add(fresqueBD);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONArray parcourtJsonArray = jsonArrayParcourt(parcourtJson);
+        parcourtBDJson = convertJsorrayToFresqueBD(parcourtJsonArray);
 
         return parcourtBDJson;
     }
@@ -97,6 +92,36 @@ JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
         }
         coordonée = new Coordonees(longitude,lattitude);
         return new FresqueBD(titre,auteur,annee,coordonée,ressourceIamge);
+    }
+
+    public JSONArray jsonArrayParcourt(JSONObject jsonparcourt){
+        JSONArray parcourtJsonArray = new JSONArray();
+        try {
+
+            parcourtJsonArray = jsonparcourt.getJSONArray("records");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return parcourtJsonArray;
+    }
+
+    public ArrayList<FresqueBD> convertJsorrayToFresqueBD(JSONArray jsonArray){
+        int lenghtParcourtJson = jsonArray.length();
+        ArrayList<FresqueBD> FresqueParcourtFromArray = new ArrayList<>();
+        for(int i =0; i < lenghtParcourtJson;i++) {
+            String fresquebdUrl = null;
+            try {
+                fresquebdUrl = jsonArray.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
+                JSONObject jsonFresqueBD = resuqestJson(fresquebdUrl);
+                FresqueBD fresqueBD = convertJsonToFresque(jsonFresqueBD);
+                FresqueParcourtFromArray.add(fresqueBD);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+            return FresqueParcourtFromArray;
     }
 
     public JSONObject resuqestJson(String urlString){
@@ -129,15 +154,7 @@ JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
         return parcourtBDJson;
     }
 
-    public ArrayList<String> ListParcourtFresqueBd(){
-        listFresqueBd = new ArrayList<>();
-        for (int i=0; i<parcourtBDJson.size();i++){
-            FresqueBD bd = parcourtBDJson.get(i);
-            String titre = bd.getTitre();
-            listFresqueBd.add(titre);
-        }
-        return listFresqueBd;
-    }
+
 
     public void initParcourt(int idParcourt){
         switch (idParcourt){

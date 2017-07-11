@@ -23,6 +23,7 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     public static final String PARCOURT_BD_CHOISIS = "parcourt_bd_choisi";
     public static final String BD_CHOISIS = "BD_choisie";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +116,7 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
 
 
 
+
     @Override
     public void onListClick(String titre, int numeroParcourtBDCHoisis) {
         Bundle fresqueBD = new Bundle();
@@ -126,7 +128,7 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     }
 
     @Override
-    public void retour() {
+    public void retour_liste() {
         loadListe();
     }
 

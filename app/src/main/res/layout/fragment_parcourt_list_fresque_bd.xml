@@ -3,24 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtListFresqueBDFragment">
-    <LinearLayout
-        style="@style/LinearLayoutFrame">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
             style="@style/textViewTextFrame"
-            android:text="@string/parcourt_list_fresque" />
-        <Button
-            android:id="@+id/btn_parcourt_list_fresque_view"
-            android:text="@string/parcourt_list_fresque_view"
-            style="@style/Button2" />
+            android:text="@string/parcourt_list_fresque"
+            android:id="@+id/tv_parcourt_list_intro"/>
 
         <ListView
             android:id="@+id/lv_parcourt_list_fresque_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_parcourt_list_intro">
 
         </ListView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </FrameLayout>

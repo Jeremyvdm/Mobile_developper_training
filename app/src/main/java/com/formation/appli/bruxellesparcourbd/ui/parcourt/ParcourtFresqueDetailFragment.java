@@ -80,7 +80,7 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
 
     //region Communication
     public interface ParcourtFresqueDetailFragmentCallBack{
-        void retour();
+        void retour_liste();
     }
 
     private ParcourtFresqueDetailFragmentCallBack callback;
@@ -98,18 +98,6 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
         tv_fresque_latitude = (TextView) v.findViewById(R.id.tv_Parcourt_fresque_det_fresque_latitude);
         iv_fresque_image = (ImageView) v.findViewById(R.id.iv_Parcourt_fresque_det_fresque_image);
         btn_fresque_detail_retour = (Button) v.findViewById(R.id.btn_Parcourt_fresque_det_retour);
-
-
-        tv_fresque_titre.setText(fresquebdchoisie.getTitre());
-        tv_fresque_auteur.setText(fresquebdchoisie.getAuteur());
-        tv_fresque_annee.setText(fresquebdchoisie.getYears());
-        double latitude = fresquebdchoisie.getCoordonees().getLatitude();
-        double longitude = fresquebdchoisie.getCoordonees().getLongitude();
-        tv_fresque_latitude.setText(Double.toString(latitude));
-        tv_fresque_longitude.setText(Double.toString(longitude));
-
-        setImage();
-
 
         btn_fresque_detail_retour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,19 +117,12 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
         JsonParcourtBD parcourJson= new JsonParcourtBD();
         parcourJson.setCallback(this);
         parcourJson.execute(numeroParcourt);
-        parcourFresqueBd = parcourJson.getArrayFresque();
-
-        for(int i=0;i<parcourFresqueBd.size();i++){
-            String titreFresqueI = parcourFresqueBd.get(i).getTitre();
-            if(titreFresqueI == titreFresque){
-                fresquebdchoisie = parcourFresqueBd.get(i);
-            }
-        }
 
     }
 
+
     private void sendCallBack(){
-        callback.retour();
+        callback.retour_liste();
     }
 
     public void setImage(){
@@ -150,16 +131,35 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
         iv_fresque_image.setImageBitmap(imageBitmap);
     }
 
+    private FresqueBD getFresqueBD(ArrayList<FresqueBD> parcourt, String titre){
+        FresqueBD fresqueBD = null;
+        for(int i=0;i<parcourt.size();i++){
+            String titreFresqueI = parcourt.get(i).getTitre();
+            if(titreFresqueI.equals(titre)){
+                fresqueBD = parcourt.get(i);
+                break;
+            }
+        }
+        return fresqueBD;
+
+    }
+
     public Bitmap requestImage(String urlString){
         Bitmap imageurl=null;
         HttpURLConnection connection = null;
+        InputStream inputStream = null;
+
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inSampleSize = 1;
+
         try {
             URL url = new URL(urlString);
             connection = (HttpURLConnection) url.openConnection();
 
-            InputStream inputStream = connection.getInputStream();
+            inputStream = connection.getInputStream();
 
-            imageurl = BitmapFactory.decodeStream(inputStream);
+            imageurl = BitmapFactory.decodeStream(inputStream, null, bmOptions);
+            inputStream.close();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -173,9 +173,23 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
 
     }
 
+    private void displayInfo(){
+        tv_fresque_titre.setText(fresquebdchoisie.getTitre());
+        tv_fresque_auteur.setText(fresquebdchoisie.getAuteur());
+        tv_fresque_annee.setText("" + fresquebdchoisie.getYears());
+        double latitude = fresquebdchoisie.getCoordonees().getLatitude();
+        double longitude = fresquebdchoisie.getCoordonees().getLongitude();
+        tv_fresque_latitude.setText(Double.toString(latitude));
+        tv_fresque_longitude.setText(Double.toString(longitude));
+    }
+
     @Override
-    public void parcourt() {
+    public void parcourt(ArrayList<FresqueBD> parcourBDJson) {
         Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
+        parcourFresqueBd = parcourBDJson;
+        fresquebdchoisie = getFresqueBD(parcourFresqueBd,titreFresque);
+        setImage();
+        displayInfo();
     }
 
     public Bitmap getImageBitmap(){

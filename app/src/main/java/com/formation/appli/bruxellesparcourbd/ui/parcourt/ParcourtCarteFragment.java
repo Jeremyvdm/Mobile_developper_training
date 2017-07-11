@@ -6,13 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,10 @@ public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.Js
 
     private Bundle extra;
     private Button ButtonRetour;
-    private FrameLayout frL_maps;
     private ArrayList<FresqueBD> parcourFresqueBd;
-    private int numéroParcourChoisi;
+    private int numeroParcourChoisi;
+
+    private GoogleMap googleMap;
 
 
     public ParcourtCarteFragment() {
@@ -56,6 +58,7 @@ public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.Js
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        initvariable();
         initParcourt();
         View v = inflater.inflate(R.layout.fragment_parcourt_carte, container, false);
         v = initFragment(v);
@@ -63,19 +66,27 @@ public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.Js
         return v;
     }
 
-    private void initParcourt(){
+    private void initvariable(){
         parcourFresqueBd = new ArrayList<>();
         extra = this.getArguments();
-        numéroParcourChoisi = extra.getInt(UserActivity.NUMERODEPARCOURT);
+    }
+
+    private void initParcourt(){
+        numeroParcourChoisi = extra.getInt(UserActivity.NUMERODEPARCOURT);
         JsonParcourtBD parcourJson= new JsonParcourtBD();
         parcourJson.setCallback(this);
-        parcourJson.execute(numéroParcourChoisi);
-        parcourFresqueBd = parcourJson.getArrayFresque();
+    }
+
+    private void initCarte(){
+        MapFragment fm = new MapFragment();
     }
 
     private View initFragment(View v){
         ButtonRetour = (Button) v.findViewById(R.id.btn_parcourt_maps_retour);
-        frL_maps = (FrameLayout) v.findViewById(R.id.fl_parcourt_frame_maps);
+
+
+
+
         ButtonRetour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +103,9 @@ public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.Js
     }
 
     @Override
-    public void parcourt() {
+    public void parcourt(ArrayList<FresqueBD> parcourBDJson) {
         Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
+        parcourFresqueBd = parcourBDJson;
+        initCarte();
     }
 }
