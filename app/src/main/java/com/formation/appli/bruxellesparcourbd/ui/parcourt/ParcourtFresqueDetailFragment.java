@@ -14,27 +14,20 @@ import com.formation.appli.bruxellesparcourbd.Asynch.GetBitmapImageFromUrl;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 
-import java.util.ArrayList;
-
 
 public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmapImageFromUrl.GetBitmapImageFromUrlCallBack {
 
     private Bundle extra;
 
-    private int numeroParcourt;
-    private ArrayList<FresqueBD> parcourFresqueBd;
-    private String titreFresque;
-    private String imageRessourceURL;
-
     private FresqueBD fresquebdchoisie;
+
+    private String urlRessourcesImage;
+
     private TextView tv_fresque_titre;
     private TextView tv_fresque_auteur;
     private TextView tv_fresque_annee;
     private TextView tv_fresque_longitude;
     private TextView tv_fresque_latitude;
-
-    private Bitmap imageBitmap;
-    private String urlImage;
 
     private ImageView iv_fresque_image;
 
@@ -50,8 +43,8 @@ public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmap
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        requestImage();
         initParcourt();
+        requestImage();
         View v =  inflater.inflate(R.layout.fragment_parcourt_fresque_detail, container, false);
         v = initFragment(v);
 
@@ -68,12 +61,7 @@ public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmap
         return instance;
     }
 
-    @Override
-    public void getBitmap(Bitmap imageFresqueBitmap) {
-        urlImage = fresquebdchoisie.getRessourceImage();
-        iv_fresque_image.setImageBitmap(imageFresqueBitmap);
-        displayInfo();
-    }
+
 
 
     //endregion
@@ -90,7 +78,6 @@ public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmap
     //endregion
 
     private View initFragment(View v){
-
         tv_fresque_titre = (TextView) v.findViewById(R.id.tv_Parcourt_fresque_det_fresque_titre);
         tv_fresque_auteur = (TextView) v.findViewById(R.id.tv_Parcourt_fresque_det_fresque_auteur);
         tv_fresque_annee = (TextView) v.findViewById(R.id.tv_Parcourt_fresque_det_fresque_annee);
@@ -118,11 +105,9 @@ public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmap
 
 
     public void requestImage(){
-        extra = this.getArguments();
-        fresquebdchoisie = extra.getParcelable(ParcourtActivity.BD_CHOISIS);
         GetBitmapImageFromUrl getBitmapImageFromUrl = new GetBitmapImageFromUrl();
         getBitmapImageFromUrl.setCallback(this);
-        getBitmapImageFromUrl.execute(urlImage);
+        getBitmapImageFromUrl.execute(urlRessourcesImage);
     }
 
 
@@ -134,10 +119,20 @@ public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmap
         double longitude = fresquebdchoisie.getCoordonees().getLongitude();
         tv_fresque_latitude.setText(Double.toString(latitude));
         tv_fresque_longitude.setText(Double.toString(longitude));
+        iv_fresque_image.setImageResource(R.drawable.loading);
     }
 
     private void initParcourt(){
+        extra = this.getArguments();
+        fresquebdchoisie = extra.getParcelable(ParcourtActivity.BD_CHOISIS);
+        urlRessourcesImage = fresquebdchoisie.getRessourceImage();
+    }
 
+    @Override
+    public void getBitmap(Bitmap imageFresqueBitmap) {
+        displayInfo();
 
+        iv_fresque_image.setImageBitmap(imageFresqueBitmap);
+        iv_fresque_image.setAdjustViewBounds(true);
     }
 }

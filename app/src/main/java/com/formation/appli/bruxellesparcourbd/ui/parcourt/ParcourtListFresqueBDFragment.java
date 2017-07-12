@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
+import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class ParcourtListFresqueBDFragment extends Fragment {
     JsonParcourtBD parcourJson;
     ArrayList<String> titre;
     ArrayList<FresqueBD> parcourFresqueBd;
+    ParcourtBD pacrourtBdComplet;
     Bundle bdBundle;
 
     ArrayAdapter<String> arrayAdapter;
@@ -49,7 +51,7 @@ public class ParcourtListFresqueBDFragment extends Fragment {
 
     //region Communication
     public interface ParcourtListFresqueBDFragmentCallback {
-        void onListClick(String titre,int numéroParcourt);
+        void getDetailFresque(String titre);
     }
 
     private ParcourtListFresqueBDFragmentCallback callback;
@@ -81,7 +83,7 @@ public class ParcourtListFresqueBDFragment extends Fragment {
     private View initFragment(View v){
 
         lvFresqueBdList = (ListView) v.findViewById(R.id.lv_parcourt_list_fresque_view);
-        initParcourt();
+        initListFresque();
         return v;
     }
 
@@ -98,7 +100,7 @@ public class ParcourtListFresqueBDFragment extends Fragment {
 
     private void envoyerCallback(String titre) {
         if (callback != null) {
-            callback.onListClick(titre, numeroParcourChoisi);
+            callback.getDetailFresque(titre);
         }
     }
 
@@ -122,10 +124,11 @@ public class ParcourtListFresqueBDFragment extends Fragment {
         });
     }
 
-        private void initParcourt(){
-        parcourFresqueBd = bdBundle.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
+    private void initParcourt(){
+        pacrourtBdComplet = bdBundle.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
+        parcourFresqueBd = pacrourtBdComplet.getParcourtFresqueBD();
         titre = listeTitreFresque();
-        initListFresque();
+
     }
 
 }

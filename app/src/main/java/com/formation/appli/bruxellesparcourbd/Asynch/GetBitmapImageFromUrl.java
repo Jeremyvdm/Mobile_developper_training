@@ -34,9 +34,10 @@ public class GetBitmapImageFromUrl extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... strings) {
-        Bitmap imageurl=null;
+        imageBitmap=null;
         HttpURLConnection connection = null;
         InputStream inputStream = null;
+        urlImage = strings[0];
 
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inSampleSize = 1;
@@ -47,7 +48,7 @@ public class GetBitmapImageFromUrl extends AsyncTask<String, Void, Bitmap> {
 
             inputStream = connection.getInputStream();
 
-            imageurl = BitmapFactory.decodeStream(inputStream, null, bmOptions);
+            imageBitmap = BitmapFactory.decodeStream(inputStream, null, bmOptions);
             inputStream.close();
 
         } catch (MalformedURLException e) {

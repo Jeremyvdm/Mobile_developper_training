@@ -23,10 +23,14 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     private Bundle extra;
     private int numeroParcourtBDCHoisis;
     private ImageView iv_Parcourt_image;
-    private Bundle bd;
     public static final String TITREFRESQUE = "Titre";
     private ParcourtBD parcourtBdComplet;
     private JsonParcourtBD parcourJson;
+
+    private ParcourtListFresqueBDFragment listFresParcFrag;
+    private ParcourtCarteFragment mapParcFrag;
+    private ParcourtChoiceFragment parcourtChoiceFragment;
+    private ParcourtFresqueDetailFragment detailFresqueFragment;
 
     public static final String PARCOURT_BD_CHOISIS = "parcourt_bd_choisi";
     public static final String BD_CHOISIS = "BD_choisie";
@@ -36,10 +40,12 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcourt);
+        initParcourt();
         initfragment();
     }
 
     private void initParcourt(){
+        extra = this.getIntent().getExtras();
         numeroParcourtBDCHoisis = extra.getInt(UserActivity.NUMERODEPARCOURT);
         parcourJson= new JsonParcourtBD();
         parcourJson.setCallback(this);
@@ -54,9 +60,9 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
 
     private void initfragment(){
         initView();
-        ParcourtChoiceFragment fragment = ParcourtChoiceFragment.getInstance();
-        fragment.setcallback(this);
-        loadFragment(R.id.fl_parcourt_frame, fragment);
+        parcourtChoiceFragment = ParcourtChoiceFragment.getInstance();
+        parcourtChoiceFragment.setcallback(this);
+        loadFragment(R.id.fl_parcourt_frame, parcourtChoiceFragment);
     }
 
     private void loadFragment(int id, Fragment fragment){
@@ -94,7 +100,6 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
                 iv_Parcourt_image.setImageResource(R.drawable.parcout_bd_global);
                 break;
         }
-        bd = new Bundle();
     }
 
     @Override
@@ -119,7 +124,8 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     }
 
     private void loadListe(){
-        ParcourtListFresqueBDFragment listFresParcFrag = new ParcourtListFresqueBDFragment();
+        Bundle bd = new Bundle();
+        listFresParcFrag = new ParcourtListFresqueBDFragment();
         bd.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
         bd.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdComplet);
         listFresParcFrag.setArguments(bd);
@@ -129,9 +135,10 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
 
     private void  loadMaps(){
         Bundle mapBundle = new Bundle();
-        ParcourtCarteFragment mapParcFrag = new ParcourtCarteFragment();
+        mapParcFrag = new ParcourtCarteFragment();
         mapBundle.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
-        bd.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdComplet);
+        mapBundle.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdComplet);
+        mapParcFrag.setArguments(mapBundle);
         loadFragment(R.id.fl_parcourt_frame, mapParcFrag);
     }
 
@@ -152,25 +159,33 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     }
 
     @Override
-    public void onListClick(String titre, int numeroParcourtBDCHoisis) {
+    public void getDetailFresque(String titre) {
         ArrayList<FresqueBD> parcourtFresqueBD = parcourtBdComplet.getParcourtFresqueBD();
         FresqueBD fresquebdchoisie = getFresqueBD(parcourtFresqueBD,titre);
         Bundle fresqueBD = new Bundle();
-        fresqueBD.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
         fresqueBD.putString(TITREFRESQUE,titre);
         fresqueBD.putParcelable(BD_CHOISIS, fresquebdchoisie);
-        ParcourtFresqueDetailFragment detailFragment = new ParcourtFresqueDetailFragment();
-        detailFragment.setArguments(fresqueBD);
-        loadFragment(R.id.fl_parcourt_frame,detailFragment);
+        detailFresqueFragment = new ParcourtFresqueDetailFragment();
+        detailFresqueFragment.setArguments(fresqueBD);
+        detailFresqueFragment.setcallback(this);
+        loadFragment(R.id.fl_parcourt_frame,detailFresqueFragment);
     }
 
     @Override
     public void retour_liste() {
-        loadListe();
+        this.getSupportFragmentManager().beginTransaction().remove(detailFresqueFragment).commit();
     }
 
     @Override
-    public void retourMenu() {
-        initfragment();
+    public void onBackPressed() {
+        if(detailFresqueFragment.isAdded()){
+            this.getSupportFragmentManager().beginTransaction().remove(detailFresqueFragment).commit();
+        } else if (mapParcFrag.isAdded()) {
+            this.getSupportFragmentManager().beginTransaction().remove(mapParcFrag).commit();
+        } else if (listFresParcFrag.isAdded()){
+            this.getSupportFragmentManager().beginTransaction().remove(listFresParcFrag).commit();
+        } else {
+            this.finish();
+        }
     }
 }
