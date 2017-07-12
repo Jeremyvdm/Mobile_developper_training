@@ -9,19 +9,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
-import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ParcourtListFresqueBDFragment extends Fragment implements JsonParcourtBD.JsonParcourtBDCallBack{
+public class ParcourtListFresqueBDFragment extends Fragment {
 
 
     private int numeroParcourChoisi;
@@ -83,7 +81,7 @@ public class ParcourtListFresqueBDFragment extends Fragment implements JsonParco
     private View initFragment(View v){
 
         lvFresqueBdList = (ListView) v.findViewById(R.id.lv_parcourt_list_fresque_view);
-
+        initParcourt();
         return v;
     }
 
@@ -104,12 +102,7 @@ public class ParcourtListFresqueBDFragment extends Fragment implements JsonParco
         }
     }
 
-    private void initParcourt(){
-        numeroParcourChoisi = bdBundle.getInt(UserActivity.NUMERODEPARCOURT);
-        parcourJson= new JsonParcourtBD();
-        parcourJson.setCallback(this);
-        parcourJson.execute(numeroParcourChoisi);
-    }
+
 
     private void initListFresque(){
         arrayAdapter = new ArrayAdapter<>(
@@ -129,10 +122,8 @@ public class ParcourtListFresqueBDFragment extends Fragment implements JsonParco
         });
     }
 
-    @Override
-    public void parcourt(ArrayList<FresqueBD> parcourBDJson) {
-        Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
-        parcourFresqueBd = parcourBDJson;
+        private void initParcourt(){
+        parcourFresqueBd = bdBundle.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
         titre = listeTitreFresque();
         initListFresque();
     }

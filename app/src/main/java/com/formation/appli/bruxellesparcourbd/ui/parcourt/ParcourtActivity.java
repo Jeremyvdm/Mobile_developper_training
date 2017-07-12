@@ -7,18 +7,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
+import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
+import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
 import com.formation.appli.bruxellesparcourbd.ui.FresqueBD.FresqueActivity;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 
-public class ParcourtActivity extends AppCompatActivity implements ParcourtChoiceFragment.ParcourtChoiceFragmentCallBack, ParcourtListFresqueBDFragment.ParcourtListFresqueBDFragmentCallback, ParcourtFresqueDetailFragment.ParcourtFresqueDetailFragmentCallBack, ParcourtCarteFragment.ParcourtCarteFragmentFragmentCallback {
+import java.util.ArrayList;
+
+public class ParcourtActivity extends AppCompatActivity implements JsonParcourtBD.JsonParcourtBDCallBack, ParcourtChoiceFragment.ParcourtChoiceFragmentCallBack, ParcourtListFresqueBDFragment.ParcourtListFresqueBDFragmentCallback, ParcourtFresqueDetailFragment.ParcourtFresqueDetailFragmentCallBack, ParcourtCarteFragment.ParcourtCarteFragmentFragmentCallback {
 
     private Bundle extra;
     private int numeroParcourtBDCHoisis;
     private ImageView iv_Parcourt_image;
     private Bundle bd;
     public static final String TITREFRESQUE = "Titre";
+    private ParcourtBD parcourtBdComplet;
+    private JsonParcourtBD parcourJson;
 
     public static final String PARCOURT_BD_CHOISIS = "parcourt_bd_choisi";
     public static final String BD_CHOISIS = "BD_choisie";
@@ -29,6 +37,19 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcourt);
         initfragment();
+    }
+
+    private void initParcourt(){
+        numeroParcourtBDCHoisis = extra.getInt(UserActivity.NUMERODEPARCOURT);
+        parcourJson= new JsonParcourtBD();
+        parcourJson.setCallback(this);
+        parcourJson.execute(numeroParcourtBDCHoisis);
+    }
+
+    @Override
+    public void parcourt(ArrayList<FresqueBD> parcourBDJson) {
+        Toast.makeText(this, "le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
+        parcourtBdComplet = new ParcourtBD(parcourBDJson);
     }
 
     private void initfragment(){
@@ -100,6 +121,7 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
     private void loadListe(){
         ParcourtListFresqueBDFragment listFresParcFrag = new ParcourtListFresqueBDFragment();
         bd.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
+        bd.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdComplet);
         listFresParcFrag.setArguments(bd);
         listFresParcFrag.setCallback(this);
         loadFragment(R.id.fl_parcourt_frame, listFresParcFrag);
@@ -109,19 +131,34 @@ public class ParcourtActivity extends AppCompatActivity implements ParcourtChoic
         Bundle mapBundle = new Bundle();
         ParcourtCarteFragment mapParcFrag = new ParcourtCarteFragment();
         mapBundle.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
+        bd.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdComplet);
         loadFragment(R.id.fl_parcourt_frame, mapParcFrag);
     }
 
 
 
 
+    private FresqueBD getFresqueBD(ArrayList<FresqueBD> parcourt, String titre){
+        FresqueBD fresqueBD = null;
+        for(int i=0;i<parcourt.size();i++){
+            String titreFresqueI = parcourt.get(i).getTitre();
+            if(titreFresqueI.equals(titre)){
+                fresqueBD = parcourt.get(i);
+                break;
+            }
+        }
+        return fresqueBD;
 
+    }
 
     @Override
     public void onListClick(String titre, int numeroParcourtBDCHoisis) {
+        ArrayList<FresqueBD> parcourtFresqueBD = parcourtBdComplet.getParcourtFresqueBD();
+        FresqueBD fresquebdchoisie = getFresqueBD(parcourtFresqueBD,titre);
         Bundle fresqueBD = new Bundle();
         fresqueBD.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
         fresqueBD.putString(TITREFRESQUE,titre);
+        fresqueBD.putParcelable(BD_CHOISIS, fresquebdchoisie);
         ParcourtFresqueDetailFragment detailFragment = new ParcourtFresqueDetailFragment();
         detailFragment.setArguments(fresqueBD);
         loadFragment(R.id.fl_parcourt_frame,detailFragment);

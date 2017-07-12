@@ -1,7 +1,6 @@
 package com.formation.appli.bruxellesparcourbd.ui.parcourt;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,22 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
+import com.formation.appli.bruxellesparcourbd.Asynch.GetBitmapImageFromUrl;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
-import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
-public class ParcourtFresqueDetailFragment extends Fragment implements JsonParcourtBD.JsonParcourtBDCallBack{
+public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmapImageFromUrl.GetBitmapImageFromUrlCallBack {
 
     private Bundle extra;
 
@@ -58,6 +50,7 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        requestImage();
         initParcourt();
         View v =  inflater.inflate(R.layout.fragment_parcourt_fresque_detail, container, false);
         v = initFragment(v);
@@ -73,6 +66,13 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
             instance = new ParcourtFresqueDetailFragment();
         }
         return instance;
+    }
+
+    @Override
+    public void getBitmap(Bitmap imageFresqueBitmap) {
+        urlImage = fresquebdchoisie.getRessourceImage();
+        iv_fresque_image.setImageBitmap(imageFresqueBitmap);
+        displayInfo();
     }
 
 
@@ -110,68 +110,21 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
 
     }
 
-    private void initParcourt(){
-        extra = this.getArguments();
-        numeroParcourt = extra.getInt(UserActivity.NUMERODEPARCOURT);
-        titreFresque = extra.getString(ParcourtActivity.TITREFRESQUE);
-        JsonParcourtBD parcourJson= new JsonParcourtBD();
-        parcourJson.setCallback(this);
-        parcourJson.execute(numeroParcourt);
-
-    }
-
 
     private void sendCallBack(){
         callback.retour_liste();
     }
 
-    public void setImage(){
-        urlImage = fresquebdchoisie.getRessourceImage();
-        imageBitmap = requestImage(urlImage);
-        iv_fresque_image.setImageBitmap(imageBitmap);
+
+
+    public void requestImage(){
+        extra = this.getArguments();
+        fresquebdchoisie = extra.getParcelable(ParcourtActivity.BD_CHOISIS);
+        GetBitmapImageFromUrl getBitmapImageFromUrl = new GetBitmapImageFromUrl();
+        getBitmapImageFromUrl.setCallback(this);
+        getBitmapImageFromUrl.execute(urlImage);
     }
 
-    private FresqueBD getFresqueBD(ArrayList<FresqueBD> parcourt, String titre){
-        FresqueBD fresqueBD = null;
-        for(int i=0;i<parcourt.size();i++){
-            String titreFresqueI = parcourt.get(i).getTitre();
-            if(titreFresqueI.equals(titre)){
-                fresqueBD = parcourt.get(i);
-                break;
-            }
-        }
-        return fresqueBD;
-
-    }
-
-    public Bitmap requestImage(String urlString){
-        Bitmap imageurl=null;
-        HttpURLConnection connection = null;
-        InputStream inputStream = null;
-
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inSampleSize = 1;
-
-        try {
-            URL url = new URL(urlString);
-            connection = (HttpURLConnection) url.openConnection();
-
-            inputStream = connection.getInputStream();
-
-            imageurl = BitmapFactory.decodeStream(inputStream, null, bmOptions);
-            inputStream.close();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            connection.disconnect();
-        }
-
-        return imageurl;
-
-    }
 
     private void displayInfo(){
         tv_fresque_titre.setText(fresquebdchoisie.getTitre());
@@ -183,17 +136,8 @@ public class ParcourtFresqueDetailFragment extends Fragment implements JsonParco
         tv_fresque_longitude.setText(Double.toString(longitude));
     }
 
-    @Override
-    public void parcourt(ArrayList<FresqueBD> parcourBDJson) {
-        Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
-        parcourFresqueBd = parcourBDJson;
-        fresquebdchoisie = getFresqueBD(parcourFresqueBd,titreFresque);
-        setImage();
-        displayInfo();
-    }
+    private void initParcourt(){
 
-    public Bitmap getImageBitmap(){
-        return imageBitmap;
-    }
 
+    }
 }

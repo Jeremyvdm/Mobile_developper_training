@@ -6,24 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
-import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
+import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
 import java.util.ArrayList;
 
 
-public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.JsonParcourtBDCallBack{
+public class ParcourtCarteFragment extends Fragment {
 
     private Bundle extra;
     private Button ButtonRetour;
     private ArrayList<FresqueBD> parcourFresqueBd;
-    private int numeroParcourChoisi;
 
     private GoogleMap googleMap;
 
@@ -71,12 +68,6 @@ public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.Js
         extra = this.getArguments();
     }
 
-    private void initParcourt(){
-        numeroParcourChoisi = extra.getInt(UserActivity.NUMERODEPARCOURT);
-        JsonParcourtBD parcourJson= new JsonParcourtBD();
-        parcourJson.setCallback(this);
-    }
-
     private void initCarte(){
         MapFragment fm = new MapFragment();
     }
@@ -102,10 +93,9 @@ public class ParcourtCarteFragment extends Fragment implements JsonParcourtBD.Js
         }
     }
 
-    @Override
-    public void parcourt(ArrayList<FresqueBD> parcourBDJson) {
-        Toast.makeText(this.getActivity(),"le parcourt a été correctemenet chargé", Toast.LENGTH_SHORT).show();
-        parcourFresqueBd = parcourBDJson;
+    private void initParcourt(){
+        ParcourtBD parcourtBdObject = extra.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
+        parcourFresqueBd =parcourtBdObject.getParcourtFresqueBD();
         initCarte();
     }
 }
