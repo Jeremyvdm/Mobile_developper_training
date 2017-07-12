@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.FresqueBD.ResultFragment">
+
+    <LinearLayout
+        style="@style/LinearLayoutFrame">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_play_result_frag"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_play_result_frag"/>
+
+        <Button
+            style="@style/Button2"
+            android:text="@string/btn_play_fresqueSuivante"
+            android:id="@+id/btn_play_result_frag_suivant"/>
+    </LinearLayout>
+
+</FrameLayout>

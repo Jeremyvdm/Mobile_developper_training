@@ -1,0 +1,91 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.FresqueBD.PlayFragemnt">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            style="@style/LinearLayoutFrame">
+
+            <TextView
+                style="@style/textViewTextFrame"
+                android:text="@string/tv_fresque_image"/>
+            <ImageView
+                android:id="@+id/iv_Play_fresque_det_fresque_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+                <TextView
+                    android:text="@string/tv_titre_freque"
+                    style="@style/textViewTextFrameMiddle"/>
+                <TextView
+                    android:id="@+id/tv_Play_fresque_det_fresque_titre"
+                    style="@style/textViewTextFrameMiddle"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+                <TextView
+                    android:text="@string/tv_auteur_fresque"
+                    style="@style/textViewTextFrameMiddle"/>
+                <TextView
+                    android:id="@+id/tv_Play_fresque_det_fresque_auteur"
+                    style="@style/textViewTextFrameMiddle"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+                <TextView
+                    android:text="@string/tv_annee_fresque"
+                    style="@style/textViewTextFrameMiddle"/>
+                <TextView
+                    android:id="@+id/tv_Play_fresque_det_fresque_annee"
+                    style="@style/textViewTextFrameMiddle"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+                <TextView
+                    android:text="@string/tv_fresque_longitude"
+                    style="@style/textViewTextFrameMiddle"/>
+                <TextView
+                    android:id="@+id/tv_Play_fresque_det_fresque_longitude"
+                    style="@style/textViewTextFrameMiddle"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+                <TextView
+                    android:text="@string/tv_fresque_latitude"
+                    style="@style/textViewTextFrameMiddle"/>
+                <TextView
+                    android:id="@+id/tv_Play_fresque_det_fresque_latitude"
+                    style="@style/textViewTextFrameMiddle"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/LinearLayoutButton">
+                <Button
+                    android:id="@+id/btn_Play_fresque_det_arriver"
+                    android:text="@string/btn_play_fresque_Arriver"
+                    style="@style/Button"/>
+
+                <view
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/btn_Play_fresque_det_next_fresque"
+                    android:text="@string/btn_play_passer_fresque"
+                    style="@style/Button"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

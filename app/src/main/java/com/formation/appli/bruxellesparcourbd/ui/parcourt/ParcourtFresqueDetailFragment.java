@@ -119,7 +119,6 @@ public class ParcourtFresqueDetailFragment extends Fragment implements GetBitmap
         double longitude = fresquebdchoisie.getCoordonees().getLongitude();
         tv_fresque_latitude.setText(Double.toString(latitude));
         tv_fresque_longitude.setText(Double.toString(longitude));
-        iv_fresque_image.setImageResource(R.drawable.loading);
     }
 
     private void initParcourt(){

@@ -10,6 +10,7 @@
     <string name="parcourt_choice_fragment">Bienvenu dans le parcourt numéro %i</string>
     <string name="parcourt_map_fragment">Voici la carte général du parcourt</string>
     <string name="parcourt_list_fresque">voici la liste des fresques que vous aller trouver dans le parcourt</string>
+    <string name="tv_play_introduction">C\'est parti!</string>
 
     <string name="et_userName_example">jvblinc182@hotmail.com</string>
 
@@ -26,6 +27,8 @@
     <string name="tv_fresque_image">Image</string>
     <string name="tv_fresque_latitude">latitude</string>
     <string name="tv_fresque_longitude">longitude</string>
+
+    <string name="tv_endGame">bravo vous avez fini le parcourt!!</string>
 
     <string name="btn_connection">Connection</string>
     <string name="btn_nouvel_utilisateur">Nouvel Utilisateur</string>
@@ -50,7 +53,13 @@
     <string name="btn_parcourt_liste">liste des fresques du parcourt</string>
     <string name="btn_parcourt_choose">choisir ce parcourt</string>
 
+    <string name="btn_play_passer_fresque">passer suivante</string>
+    <string name="btn_play_fresque_Arriver">arriver Fresque</string>
+    <string name="btn_play_fresqueSuivante">fresque suivante</string>
+
     <string name="btn_parcourt_retour">retour</string>
+
+    <string name="btn_end_game_act_retrun_util">retour à l\'écran d\'acceuil</string>
 
     <string name="parcourt_list_fresque_view">retour</string>
 
@@ -68,6 +77,8 @@
     <string name="firebase_status_fmt">BdParcourt User: %s</string>
     <string name="signed_out">Signed Out</string>
     <string name="required_field">Required field</string>
+
+    <string name="position">votre position est maintenant connue</string>
 
 
 

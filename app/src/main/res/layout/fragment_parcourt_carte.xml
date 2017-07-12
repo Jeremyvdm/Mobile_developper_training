@@ -4,24 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtCarteFragment">
 
-    <RelativeLayout
-        style="@style/LinearLayoutFrame">
-
-        <fragment
-            android:id="@+id/fr_parcourt_frame_maps"
-            android:layout_width="match_parent"
-            android:layout_height="350dp">
-
-        </fragment>
-
-        <Button
-            style="@style/Button2"
-            android:text="@string/btn_parcourt_retour"
-            android:id="@+id/btn_parcourt_maps_retour"
-            android:layout_below="@+id/fr_parcourt_frame_maps"/>
-    </RelativeLayout>
-
-
-
+    <com.google.android.gms.maps.MapView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mV_parc_frag_maps">
+    </com.google.android.gms.maps.MapView>
 
 </FrameLayout>

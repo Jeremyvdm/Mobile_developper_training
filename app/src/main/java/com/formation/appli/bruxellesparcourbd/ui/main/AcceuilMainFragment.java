@@ -80,6 +80,10 @@ public class AcceuilMainFragment extends Fragment implements View.OnClickListene
         btn_connexion.setOnClickListener(this);
         btn_continue.setOnClickListener(this);
 
+        //todo TDL Login for quick test
+        et_email.setText("jeremyvdm@gmail.com");
+        et_password.setText("J22N16vdm01du03.");
+
         return v;
     }
 

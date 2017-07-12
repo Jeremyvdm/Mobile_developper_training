@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.Victory.EndGameActivity">
+
+    <LinearLayout
+        style="@style/LinearLayoutFrame">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/parcour_bd"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gagne"/>
+
+        <TextView
+            style="@style/textViewTextFrameResult"
+            android:text="@string/tv_endGame"/>
+
+        <Button
+            style="@style/Button2"
+            android:text="@string/btn_end_game_act_retrun_util"
+            android:id="@+id/btn_end_game_button"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -7,73 +7,13 @@
     tools:context="com.formation.appli.bruxellesparcourbd.ui.FresqueBD.FresqueActivity"
     android:orientation="vertical">
     <ImageView
-        android:id="@+id/iv_fresque_act_parc_nb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        style="@style/textViewTextFrame"
-        android:text="@string/tv_fresque_image"/>
-    <ImageView
-        android:id="@+id/iv_fresque_act_fresque_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        style="@style/LinearLayoutuserInput">
-        <TextView
-            android:text="@string/tv_titre_freque"
-            style="@style/textViewTextFrameMiddle"/>
-        <TextView
-            android:id="@+id/tv_Parcourt_fresque_det_fresque_titre"
-            style="@style/textViewTextFrameMiddle"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutuserInput">
-        <TextView
-            android:text="@string/tv_auteur_fresque"
-            style="@style/textViewTextFrameMiddle"/>
-        <TextView
-            android:id="@+id/tv_Parcourt_fresque_det_fresque_auteur"
-            style="@style/textViewTextFrameMiddle"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutuserInput">
-        <TextView
-            android:text="@string/tv_annee_fresque"
-            style="@style/textViewTextFrameMiddle"/>
-        <TextView
-            android:id="@+id/tv_Parcourt_fresque_det_fresque_annee"
-            style="@style/textViewTextFrameMiddle"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutuserInput">
-        <TextView
-            android:text="@string/tv_fresque_longitude"
-            style="@style/textViewTextFrameMiddle"/>
-        <TextView
-            android:id="@+id/tv_Parcourt_fresque_det_fresque_longitude"
-            style="@style/textViewTextFrameMiddle"/>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/LinearLayoutuserInput">
-        <TextView
-            android:text="@string/tv_fresque_latitude"
-            style="@style/textViewTextFrameMiddle"/>
-        <TextView
-            android:id="@+id/tv_Parcourt_fresque_det_fresque_latitude"
-            style="@style/textViewTextFrameMiddle"/>
-    </LinearLayout>
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_parcourt_number_image_fresq_activity"/>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/fr_fresque_activity_frame">
 
     </FrameLayout>
-
-
-
 </LinearLayout>

@@ -70,6 +70,7 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
         FragmentTransaction fragTrans = fragman.beginTransaction();
         if(fragment != null){
             fragTrans.replace(id, fragment);
+            fragTrans.addToBackStack(null);
         }else{
             fragTrans.add(id, fragment);
         }
@@ -120,6 +121,7 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     private void play(){
         Intent fresqueIntent  = new Intent(this,FresqueActivity.class);
         fresqueIntent.putExtra(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
+        fresqueIntent.putExtra(PARCOURT_BD_CHOISIS,parcourtBdComplet);
         startActivity(fresqueIntent);
     }
 
@@ -139,6 +141,7 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
         mapBundle.putInt(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
         mapBundle.putParcelable(PARCOURT_BD_CHOISIS,parcourtBdComplet);
         mapParcFrag.setArguments(mapBundle);
+        mapParcFrag.setCallback(this);
         loadFragment(R.id.fl_parcourt_frame, mapParcFrag);
     }
 
@@ -174,18 +177,5 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     @Override
     public void retour_liste() {
         this.getSupportFragmentManager().beginTransaction().remove(detailFresqueFragment).commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(detailFresqueFragment.isAdded()){
-            this.getSupportFragmentManager().beginTransaction().remove(detailFresqueFragment).commit();
-        } else if (mapParcFrag.isAdded()) {
-            this.getSupportFragmentManager().beginTransaction().remove(mapParcFrag).commit();
-        } else if (listFresParcFrag.isAdded()){
-            this.getSupportFragmentManager().beginTransaction().remove(listFresParcFrag).commit();
-        } else {
-            this.finish();
-        }
     }
 }

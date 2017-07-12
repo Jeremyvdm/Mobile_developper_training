@@ -1,30 +1,43 @@
 package com.formation.appli.bruxellesparcourbd.ui.FresqueBD;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
+import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
+import com.formation.appli.bruxellesparcourbd.ui.Victory.EndGameActivity;
 import com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtActivity;
 
-public class FresqueActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class FresqueActivity extends AppCompatActivity implements PlayFragemnt.playFragemntCallback, ResultFragment.ResultFragmentCallback, LocalisationGPS.LocalisationGPSCallBack{
 
     private Bundle extra;
 
     private int numeroParcourt;
-    private String imageRessourceURL;
 
-    private FresqueBD fresquebdchoisie;
-    private TextView tv_fresque_titre;
-    private TextView tv_fresque_auteur;
-    private TextView tv_fresque_annee;
-    private TextView tv_fresque_longitude;
-    private TextView tv_fresque_latitude;
+    private ParcourtBD parcourtBDchoisis;
 
-    private ImageView iv_fresque_num_parcour;
-    private ImageView iv_fresque_image;
+    private ArrayList<FresqueBD> parcourtBdChoisisArray;
+
+    private FresqueBD fresqueBDPlay;
+
+    private ImageView iv_fresque_activity_num_parcourt;
+
+    public final static String FRESQUE_BD_PLAY = "Fresque_bd_play";
+    public final static String FRESQUE_RESULT = "Fresque_bd_result";
+
+    private int fresqueNumber;
+    private int maxFresque;
+
+    private double maPostionLatitude;
+    private double maPositonLongitude;
 
 
     @Override
@@ -37,29 +50,132 @@ public class FresqueActivity extends AppCompatActivity {
 
 
     private void initView(){
+        iv_fresque_activity_num_parcourt = (ImageView) findViewById(R.id.iv_parcourt_number_image_fresq_activity);
         extra = getIntent().getExtras();
-        fresquebdchoisie = extra.getParcelable(ParcourtActivity.BD_CHOISIS);
+        parcourtBDchoisis = extra.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
         numeroParcourt = extra.getInt(ParcourtActivity.PARCOURT_BD_CHOISIS);
-        imageRessourceURL = fresquebdchoisie.getRessourceImage();
 
-        tv_fresque_titre = (TextView) findViewById(R.id.tv_Parcourt_fresque_det_fresque_titre);
-        tv_fresque_auteur = (TextView) findViewById(R.id.tv_Parcourt_fresque_det_fresque_auteur);
-        tv_fresque_annee = (TextView) findViewById(R.id.tv_Parcourt_fresque_det_fresque_annee);
-        tv_fresque_longitude = (TextView) findViewById(R.id.tv_Parcourt_fresque_det_fresque_longitude);
-        tv_fresque_latitude = (TextView) findViewById(R.id.tv_Parcourt_fresque_det_fresque_latitude);
-        iv_fresque_num_parcour = (ImageView) findViewById(R.id.iv_fresque_act_parc_nb);
-        iv_fresque_image = (ImageView) findViewById(R.id.iv_fresque_act_fresque_image);
+        switch (numeroParcourt) {
+            case 1:
+                iv_fresque_activity_num_parcourt.setImageResource(R.drawable.parcour_n_1);
+                break;
+            case 2:
+                iv_fresque_activity_num_parcourt.setImageResource(R.drawable.parcour_n_2);
+                break;
+            case 3:
+                iv_fresque_activity_num_parcourt.setImageResource(R.drawable.parcour_n_3);
+                break;
+            case 4:
+                iv_fresque_activity_num_parcourt.setImageResource(R.drawable.parcour_n_4);
+                break;
+            case 5:
+                iv_fresque_activity_num_parcourt.setImageResource(R.drawable.parcour_n_5);
+                break;
+            default:
+                iv_fresque_activity_num_parcourt.setImageResource(R.drawable.parcout_bd_global);
+                break;
+        }
+        fresqueNumber = 0;
+        parcourtBdChoisisArray = parcourtBDchoisis.getParcourtFresqueBD();
+        fresqueBDPlay = parcourtBdChoisisArray.get(fresqueNumber);
+        Bundle playBd = new Bundle();
+        playBd.putParcelable(FRESQUE_BD_PLAY,fresqueBDPlay);
+        maxFresque = parcourtBDchoisis.getParcourtFresqueBD().size();
+        PlayFragemnt playFragemnt = new PlayFragemnt();
+        playFragemnt.setCallback(this);
+        loadFragment(R.id.fr_fresque_activity_frame,playFragemnt);
 
+    }
 
-        tv_fresque_titre.setText(fresquebdchoisie.getTitre());
-        tv_fresque_auteur.setText(fresquebdchoisie.getAuteur());
-        tv_fresque_annee.setText(fresquebdchoisie.getYears());
-        double latitude = fresquebdchoisie.getCoordonees().getLatitude();
-        double longitude = fresquebdchoisie.getCoordonees().getLongitude();
-        tv_fresque_latitude.setText(Double.toString(latitude));
-        tv_fresque_longitude.setText(Double.toString(longitude));
+    private void loadFragment(int id, Fragment fragment){
+        FragmentManager fragman = getSupportFragmentManager();
+        FragmentTransaction fragTrans = fragman.beginTransaction();
+        if(fragment != null){
+            fragTrans.replace(id, fragment);
+            fragTrans.addToBackStack(null);
+        }else{
+            fragTrans.add(id, fragment);
+        }
+        fragTrans.commit();
+    }
 
-        iv_fresque_num_parcour.setImageResource(numeroParcourt);
+    @Override
+    public void onClickPlay(int id) {
+        switch (id){
+            case R.id.btn_Play_fresque_det_arriver:
+                arriverALaFresque();
+                break;
+            case R.id.btn_Play_fresque_det_next_fresque:
+                passerLaFresque();
+                break;
+        }
+    }
 
+    @Override
+    public void onClickResult() {
+        fresqueNumber+=1;
+        if (maxFresque > fresqueNumber){
+            Bundle resultBd = new Bundle();
+            resultBd.putParcelable(FRESQUE_BD_PLAY,fresqueBDPlay);
+            maxFresque = parcourtBDchoisis.getParcourtFresqueBD().size();
+            PlayFragemnt playFragemnt = new PlayFragemnt();
+            playFragemnt.setCallback(this);
+            loadFragment(R.id.fr_fresque_activity_frame,playFragemnt);
+        }else{
+            Intent endGame = new Intent(this, EndGameActivity.class);
+            startActivity(endGame);
+        }
+
+    }
+
+    private void arriverALaFresque(){
+        double latitude = fresqueBDPlay.getCoordonees().getLatitude();
+        double longitude = fresqueBDPlay.getCoordonees().getLongitude();
+        checkPositionPlay(latitude,longitude);
+        Bundle resultBundle = new Bundle();
+        if(checkPositionPlay(latitude,longitude)){
+            resultBundle.putString(FRESQUE_RESULT,"bravo");
+        }else{
+            resultBundle.putString(FRESQUE_RESULT,"perdu");
+        }
+        ResultFragment resultFragment = new ResultFragment();
+        resultFragment.setCallback(this);
+        loadFragment(R.id.fr_fresque_activity_frame,resultFragment);
+    }
+
+    private void passerLaFresque(){
+        fresqueNumber+=1;
+        if (maxFresque > fresqueNumber){
+            Bundle resultBd = new Bundle();
+            resultBd.putParcelable(FRESQUE_BD_PLAY,fresqueBDPlay);
+            maxFresque = parcourtBDchoisis.getParcourtFresqueBD().size();
+            PlayFragemnt playFragemnt = new PlayFragemnt();
+            playFragemnt.setCallback(this);
+            loadFragment(R.id.fr_fresque_activity_frame,playFragemnt);
+        }else{
+            Intent endGame = new Intent(this, EndGameActivity.class);
+            startActivity(endGame);
+        }
+    }
+
+    private Boolean checkPositionPlay(double latitude, double longitude){
+        loca();
+        if(latitude-maPostionLatitude < 2 && longitude - maPositonLongitude < 2){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void loca() {
+        LocalisationGPS gps = new LocalisationGPS();
+        gps.setCallback(this);
+        gps.demande(this);
+    }
+
+    @Override
+    public void localiser(double latitude, double longitude) {
+        maPostionLatitude = latitude;
+        maPositonLongitude = longitude;
     }
 }
