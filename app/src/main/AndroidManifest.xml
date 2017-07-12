@@ -31,7 +31,7 @@
         </activity>
         <activity android:name=".ui.User.UserActivity" />
         <activity android:name=".ui.parcourt.ParcourtActivity" />
-        <activity android:name=".ui.FresqueBD.FresqueActivity" />
+        <activity android:name=".ui.Game.GameActivity" />
         <activity android:name=".ui.parcourt.ParcourtCarteFragment" />
 
         <meta-data

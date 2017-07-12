@@ -13,7 +13,7 @@ import com.formation.appli.bruxellesparcourbd.Asynch.JsonParcourtBD;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
-import com.formation.appli.bruxellesparcourbd.ui.FresqueBD.FresqueActivity;
+import com.formation.appli.bruxellesparcourbd.ui.Game.GameActivity;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 
 import java.util.ArrayList;
@@ -119,7 +119,7 @@ public class ParcourtActivity extends AppCompatActivity implements JsonParcourtB
     }
 
     private void play(){
-        Intent fresqueIntent  = new Intent(this,FresqueActivity.class);
+        Intent fresqueIntent  = new Intent(this,GameActivity.class);
         fresqueIntent.putExtra(UserActivity.NUMERODEPARCOURT,numeroParcourtBDCHoisis);
         fresqueIntent.putExtra(PARCOURT_BD_CHOISIS,parcourtBdComplet);
         startActivity(fresqueIntent);

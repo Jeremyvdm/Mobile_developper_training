@@ -1,4 +1,4 @@
-package com.formation.appli.bruxellesparcourbd.ui.FresqueBD;
+package com.formation.appli.bruxellesparcourbd.ui.Game;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -94,7 +94,7 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
 
     private void initParcourt(){
         extra = this.getArguments();
-        fresquebdPlay = extra.getParcelable(FresqueActivity.FRESQUE_BD_PLAY);
+        fresquebdPlay = extra.getParcelable(GameActivity.FRESQUE_BD_PLAY);
         urlRessourcesImage = fresquebdPlay.getRessourceImage();
     }
 

@@ -1,4 +1,4 @@
-package com.formation.appli.bruxellesparcourbd.ui.FresqueBD;
+package com.formation.appli.bruxellesparcourbd.ui.Game;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

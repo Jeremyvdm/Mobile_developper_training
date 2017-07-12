@@ -1,4 +1,4 @@
-package com.formation.appli.bruxellesparcourbd.ui.FresqueBD;
+package com.formation.appli.bruxellesparcourbd.tools;
 
 import android.Manifest;
 import android.content.Context;

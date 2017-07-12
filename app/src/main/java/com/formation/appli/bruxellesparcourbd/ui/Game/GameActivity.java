@@ -1,4 +1,4 @@
-package com.formation.appli.bruxellesparcourbd.ui.FresqueBD;
+package com.formation.appli.bruxellesparcourbd.ui.Game;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,13 @@ import android.widget.ImageView;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
 import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
+import com.formation.appli.bruxellesparcourbd.tools.LocalisationGPS;
 import com.formation.appli.bruxellesparcourbd.ui.Victory.EndGameActivity;
 import com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtActivity;
 
 import java.util.ArrayList;
 
-public class FresqueActivity extends AppCompatActivity implements PlayFragemnt.playFragemntCallback, ResultFragment.ResultFragmentCallback, LocalisationGPS.LocalisationGPSCallBack{
+public class GameActivity extends AppCompatActivity implements PlayFragemnt.playFragemntCallback, ResultFragment.ResultFragmentCallback, LocalisationGPS.LocalisationGPSCallBack{
 
     private Bundle extra;
 
