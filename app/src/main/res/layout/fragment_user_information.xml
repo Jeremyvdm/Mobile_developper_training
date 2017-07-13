@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.DB.UserInformationFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/sv_database_info_frag_formulaire"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <LinearLayout
+                style="@style/LinearLayoutFrame">
+
+                <TextView
+                    style="@style/textViewTextFrame"
+                    android:text="@string/database_info_fragment"/>
+
+                <LinearLayout
+                    style="@style/LinearLayoutuserInput">
+
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:text="@string/tv_Last_name"/>
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:id="@+id/tv_database_info_frag_Last_name"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearLayoutuserInput">
+
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:text="@string/tv_First_name"/>
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:id="@+id/tv_database_info_frag_first_name"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearLayoutuserInput">
+
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:text="@string/tv_user_name"/>
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:id="@+id/tv_database_info_frag_user_name"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearLayoutuserInput">
+
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:text="@string/tv_email" />
+                    <TextView
+                        style="@style/textViewTextFrameMiddle"
+                        android:id="@+id/tv_database_info_frag_email"
+                        android:inputType="textEmailAddress"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+        <LinearLayout
+            style="@style/LinearLayoutButton"
+            android:layout_below="@+id/sv_database_info_frag_formulaire">
+            <Button
+                android:id="@+id/btn_database_info_frag_confirm"
+                android:text="@string/btn_update_information"
+                style="@style/Button2"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

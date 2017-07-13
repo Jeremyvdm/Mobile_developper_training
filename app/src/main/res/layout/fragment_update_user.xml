@@ -1,0 +1,99 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.DB.UpdateUserFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/sv_database_upt_frag_formulaire"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <LinearLayout
+            style="@style/LinearLayoutFrame">
+
+            <TextView
+                style="@style/textViewTextFrame"
+                android:text="@string/database_update_fragment"/>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+
+                <TextView
+                    style="@style/textViewTextFrameMiddle"
+                    android:text="@string/tv_Last_name"/>
+                <EditText
+                    android:id="@+id/et_database_upt_frag_Last_name"
+                    style="@style/edithTextFrameMiddle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+
+                <TextView
+                    style="@style/textViewTextFrameMiddle"
+                    android:text="@string/tv_First_name"/>
+                <EditText
+                    android:id="@+id/et_database_upt_frag_first_name"
+                    style="@style/edithTextFrameMiddle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+
+                <TextView
+                    style="@style/textViewTextFrameMiddle"
+                    android:text="@string/tv_user_name"/>
+                <EditText
+                    android:id="@+id/et_database_upt_frag_user_name"
+                    style="@style/edithTextFrameMiddle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+
+                <TextView
+                    style="@style/textViewTextFrameMiddle"
+                    android:text="@string/tv_email" />
+                <EditText
+                    android:id="@+id/et_database_upt_frag_email"
+                    style="@style/edithTextFrameMiddle"
+                    android:hint="@string/et_userName_example"
+                    android:inputType="textEmailAddress"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutuserInput">
+
+                <TextView
+                    style="@style/textViewTextFrameMiddle"
+                    android:text="@string/tv_password"/>
+                <EditText
+                    android:id="@+id/et_database_upt_frag_password"
+                    style="@style/edithTextFrameMiddle"
+                    android:inputType="textPassword"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+    <LinearLayout
+        style="@style/LinearLayoutButton"
+        android:layout_below="@+id/sv_database_upt_frag_formulaire">
+    <Button
+        android:id="@+id/btn_database_upt_frag_confirm"
+        android:text="@string/btn_confirm_information"
+        android:enabled="false"
+        style="@style/Button2"/>
+    </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

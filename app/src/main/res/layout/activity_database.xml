@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.formation.appli.bruxellesparcourbd.ui.Game.GameActivity"
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.DB.DatabaseActivity"
     android:orientation="vertical">
+
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/iv_parcourt_number_image_fresq_activity"
-        android:background="#f94848"/>
-    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fr_fresque_activity_frame">
+        android:src="@drawable/parcour_bd_database"
+        android:background="#f94848"/>
+    <FrameLayout
+        android:id="@+id/fl_database_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="9">
 
     </FrameLayout>
+
 </LinearLayout>

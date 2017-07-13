@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.formation.appli.bruxellesparcourbd.DB.UserDAO;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.tools.FragToolBox;
+import com.formation.appli.bruxellesparcourbd.ui.DB.DatabaseActivity;
 import com.formation.appli.bruxellesparcourbd.ui.parcours.ParcoursActivity;
 
 public class UserActivity extends AppCompatActivity implements ChoiceUserFragment.ChoiceUserFragmentCallBack, ParcoursUserFragment.ParcoursUserFragmentCallBack {
@@ -57,9 +58,8 @@ public class UserActivity extends AppCompatActivity implements ChoiceUserFragmen
     }
 
     private void loadDbFragment(){
-        DbUserFragment dbUsFrag = new DbUserFragment();
-        dbUsFrag.setcallback(this);
-        FragToolBox.loadFragment(this,R.id.fl_user_frame, dbUsFrag);
+        Intent dbIntent = new Intent(this,DatabaseActivity.class);
+        startActivity(dbIntent);
     }
 
     private void loadParcourtActivity(){

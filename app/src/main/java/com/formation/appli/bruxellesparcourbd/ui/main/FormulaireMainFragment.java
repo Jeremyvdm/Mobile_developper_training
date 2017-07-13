@@ -13,7 +13,6 @@ import android.widget.EditText;
 
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.User;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 public class FormulaireMainFragment extends Fragment implements View.OnClickListener{
@@ -28,7 +27,6 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
     private Button btn_continue;
 
     private User newGreatUser;
-    FirebaseDatabase database;
 
 
     public FormulaireMainFragment() {
@@ -48,7 +46,7 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
 
     //region Communication
     public interface FormulaireFragmentCallBack{
-        void onClickFormulaire(int id, String userName);
+        void onClickFormulaire(int id, User newGreatUser);
     }
 
     private FormulaireMainFragment.FormulaireFragmentCallBack callback;
@@ -125,8 +123,7 @@ public class FormulaireMainFragment extends Fragment implements View.OnClickList
 
     private void sendCallBack(int id,User user) {
         if(callback!=null){
-            String userName = user.getUserName();
-            callback.onClickFormulaire(id, userName);
+            callback.onClickFormulaire(id, user);
         }
     }
 

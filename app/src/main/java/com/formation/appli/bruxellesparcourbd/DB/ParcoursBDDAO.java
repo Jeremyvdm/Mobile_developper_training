@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,11 +26,19 @@ public class ParcoursBDDAO {
     public final static String COLUMN_PARCOURSBD_TITRE_FRESQUE = "parcours_bd_titre_fresque";
     public static final String TAG = "error db";
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference(PARCOURTBDTABLE);
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference();
+    int count = 516157671;
 
     public void addParcoursToDatrabase(ParcoursDbTitre parcoursDbTitre){
-        myRef.child(COLUMN_PARCOURSBD_ID).setValue(parcoursDbTitre);
+        String parcoursTitre = parcoursDbTitre.getParcoursTitre();
+        ArrayList<String> parcoursFresqueBdTitre = parcoursDbTitre.getParcoursTitreFresque();
+        String key = parcoursTitre + count;
+        myRef = mDatabase.getInstance().getReference().child(PARCOURTBDTABLE +"/"+key).child(COLUMN_PARCOURSBD_TITRE);
+        myRef.setValue(parcoursTitre);
+        myRef = mDatabase.getInstance().getReference().child(PARCOURTBDTABLE + "/" + key).child(COLUMN_PARCOURSBD_TITRE_FRESQUE);
+        myRef.setValue(parcoursFresqueBdTitre);
+        count = count+2;
     }
 
     public void updateDataFromDatabase(ParcoursDbTitre parcoursDbTitre){

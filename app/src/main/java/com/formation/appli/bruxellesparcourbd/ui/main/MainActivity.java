@@ -3,9 +3,6 @@ package com.formation.appli.bruxellesparcourbd.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -15,6 +12,8 @@ import android.widget.Toast;
 
 import com.formation.appli.bruxellesparcourbd.DB.UserDAO;
 import com.formation.appli.bruxellesparcourbd.R;
+import com.formation.appli.bruxellesparcourbd.model.User;
+import com.formation.appli.bruxellesparcourbd.tools.FragToolBox;
 import com.formation.appli.bruxellesparcourbd.ui.User.UserActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements AcceuilMainFragment.AcceuilFragmentCallBack, FormulaireMainFragment.FormulaireFragmentCallBack{
 
     private static final String TAG = "EmailPassword";
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
 
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
     private void initFragment(){
         AcceuilMainFragment fragment = AcceuilMainFragment.getInstance();
         fragment.setcallback(this);
-        loadFragment(R.id.fl_main_frame, fragment);
+        FragToolBox.loadFragment(this,R.id.fl_main_frame, fragment);
     }
 
 
@@ -89,12 +88,13 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
     }
 
     @Override
-    public void onClickFormulaire(int id, String userName) {
+    public void onClickFormulaire(int id, User user) {
         switch (id){
             case R.id.btn_formulaire_confirm:
-                onConfirm();
+                onConfirm(user);
                 break;
             case R.id.btn_formulaire_continue:
+                String userName = user.getUserName();
                 Start_user_activity(userName);
                 break;
         }
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
     public void loadFormulaire(){
         FormulaireMainFragment formulaireFragment = FormulaireMainFragment.getInstance();
         formulaireFragment.setcallback(this);
-        loadFragment(R.id.fl_main_frame,formulaireFragment);
+        FragToolBox.loadFragment(this,R.id.fl_main_frame,formulaireFragment);
     }
 
     //region firebase new user connection
@@ -139,11 +139,9 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
                 });
     }
 
-    public void onConfirm() {
-        EditText et_email = (EditText) findViewById(R.id.et_formulaire_email);
-        EditText et_password = (EditText) findViewById(R.id.et_formulaire_password);
-        String email = et_email.getText().toString().trim();
-        String password = et_password.getText().toString().trim();
+    public void onConfirm(User newGreatUser) {
+        String email = newGreatUser.getEmail();
+        String password = newGreatUser.getPassword();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -172,22 +170,14 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
                     }
                 });
 
+        UserDAO userDAO = new UserDAO();
+        userDAO.addUserTodatabase(newGreatUser);
+
     }
 
     //endregion
 
-    private void loadFragment(int id, Fragment fragment){
-        FragmentManager fragman = getSupportFragmentManager();
-        FragmentTransaction fragTrans = fragman.beginTransaction();
-        if(fragment != null){
-            fragTrans.replace(id, fragment);
-            fragTrans.addToBackStack(null);
-        }else{
-            fragTrans.add(id, fragment);
-            fragTrans.addToBackStack(null);
-        }
-        fragTrans.commit();
-    }
+
 
     private void Start_user_activity(String userName){
         Intent userIntent = new Intent(this,UserActivity.class);

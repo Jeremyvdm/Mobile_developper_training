@@ -32,13 +32,13 @@
         <activity android:name=".ui.User.UserActivity" />
         <activity android:name=".ui.parcours.ParcoursActivity" />
         <activity android:name=".ui.Game.GameActivity" />
-        <activity android:name=".ui.parcours.ParcoursCarteFragment" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA6fNeK_M7DsaWG8d_s5B0sfP9d8K_xC9E" />
 
-        <activity android:name=".ui.Victory.EndGameActivity"></activity>
+        <activity android:name=".ui.Victory.EndGameActivity" />
+        <activity android:name=".ui.DB.DatabaseActivity"></activity>
     </application>
 
 </manifest>

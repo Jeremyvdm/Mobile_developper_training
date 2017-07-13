@@ -144,7 +144,6 @@ public class User implements Parcelable {
         result.put(UserDAO.COLUMN_FIRST_NAME, firstName);
         result.put(UserDAO.COLUMN_USER_NAME, userName);
         result.put(UserDAO.COLUMN_EMAIL, userName);
-        result.put(UserDAO.COLUMN_PASSWORD, userName);
         result.put("starCount", starCount);
         result.put("stars", stars);
 
