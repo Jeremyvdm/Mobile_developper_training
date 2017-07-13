@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.formation.appli.bruxellesparcourbd.ui.User.ParcourtUserFragment">
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.User.ParcoursUserFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,28 +16,28 @@
                 style="@style/textViewTextFrame"/>
 
             <Button
-                android:id="@+id/btn_user_parcourt_1"
-                android:text="@string/btn_user_parcourt_1"
+                android:id="@+id/btn_user_parcours_1"
+                android:text="@string/btn_user_parcours_1"
                 style="@style/Button2" />
 
             <Button
-                android:id="@+id/btn_user_parcourt_2"
-                android:text="@string/btn_user_parcourt_2"
+                android:id="@+id/btn_user_parcours_2"
+                android:text="@string/btn_user_parcours_2"
                 style="@style/Button2" />
 
             <Button
-                android:id="@+id/btn_user_parcourt_3"
-                android:text="@string/btn_user_parcourt_3"
+                android:id="@+id/btn_user_parcours_3"
+                android:text="@string/btn_user_parcours_3"
                 style="@style/Button2" />
 
             <Button
-                android:id="@+id/btn_user_parcourt_4"
-                android:text="@string/btn_user_parcourt_4"
+                android:id="@+id/btn_user_parcours_4"
+                android:text="@string/btn_user_parcours_4"
                 style="@style/Button2" />
 
             <Button
-                android:id="@+id/btn_user_parcourt_5"
-                android:text="@string/btn_user_parcourt_5"
+                android:id="@+id/btn_user_parcours_5"
+                android:text="@string/btn_user_parcours_5"
                 style="@style/Button2" />
         </LinearLayout>
 

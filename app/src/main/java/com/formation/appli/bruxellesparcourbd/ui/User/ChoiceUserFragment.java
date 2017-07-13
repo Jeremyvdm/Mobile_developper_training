@@ -63,9 +63,9 @@ public class ChoiceUserFragment extends Fragment implements View.OnClickListener
 
         tv_user_frag = (TextView) v.findViewById(R.id.tv_choice_user_fragment);
 
-        btn_choiceParcourt = (Button) v.findViewById(R.id.btn_choice_user_choix_parcourt);
+        btn_choiceParcourt = (Button) v.findViewById(R.id.btn_choice_user_choix_parcours);
         btn_accesdb = (Button) v.findViewById(R.id.btn_choice_user_acces_db);
-        btn_parcourtGeneral = (Button) v.findViewById(R.id.btn_choice_user_parcourt_general);
+        btn_parcourtGeneral = (Button) v.findViewById(R.id.btn_choice_user_parcours_general);
 
         String name = newExtra.getString(UserDAO.COLUMN_USER_NAME);
         tv_user_frag.setText(String.format(getString(R.string.user_fragment),name));

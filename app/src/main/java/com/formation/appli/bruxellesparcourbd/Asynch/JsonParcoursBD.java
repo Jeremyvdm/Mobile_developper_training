@@ -25,8 +25,7 @@ import java.util.ArrayList;
 public class
 
 
-
-JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
+JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
     private ArrayList<FresqueBD> parcourtBDJson;
     private int debut;
@@ -150,9 +149,6 @@ JsonParcourtBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
     }
 
-    public ArrayList<FresqueBD> getArrayFresque(){
-        return parcourtBDJson;
-    }
 
 
 

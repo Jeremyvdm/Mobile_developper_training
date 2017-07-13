@@ -5,11 +5,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.formation.appli.bruxellesparcourbd.R;
 
 
 public class ResultFragment extends Fragment implements View.OnClickListener{
+
+    private ImageView ivResultFresque;
+    private TextView tvResultFresque;
+    private Button  btnResultFresque;
+    private Bundle bundleResult;
+    private String result;
 
     public ResultFragment() {
         // Required empty public constructor
@@ -44,8 +53,31 @@ public class ResultFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_result, container, false);
+        View v =  inflater.inflate(R.layout.fragment_result, container, false);
+        v = initFragment(v);
+        return v;
     }
+
+    private View initFragment(View v){
+        bundleResult = this.getArguments();
+
+        ivResultFresque = (ImageView) v.findViewById(R.id.iv_play_result_frag);
+        tvResultFresque = (TextView) v.findViewById(R.id.tv_play_result_frag);
+        btnResultFresque = (Button) v.findViewById(R.id.btn_play_result_frag_suivant);
+
+        result = bundleResult.getString(GameActivity.FRESQUE_RESULT);
+        if(result.equals("bravo")){
+            ivResultFresque.setImageResource(R.drawable.bravo);
+            tvResultFresque.setText(R.string.tv_game_result_frag_bravo);
+        }else{
+            ivResultFresque.setImageResource(R.drawable.rate);
+            tvResultFresque.setText(R.string.tv_game_result_frag_perdu);
+        }
+        ivResultFresque.setAdjustViewBounds(true);
+        btnResultFresque.setOnClickListener(this);
+        return v;
+    }
+
 
     @Override
     public void onClick(View view) {

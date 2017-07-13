@@ -12,8 +12,7 @@
             android:id="@+id/iv_play_result_frag"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/textViewTextFrame"
             android:id="@+id/tv_play_result_frag"/>
 
         <Button

@@ -2,17 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtListFresqueBDFragment">
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.parcours.ParcoursListFresqueBDFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
             style="@style/textViewTextFrame"
-            android:text="@string/parcourt_list_fresque"
+            android:text="@string/parcours_list_fresque"
             android:id="@+id/tv_parcourt_list_intro"/>
 
         <ListView
-            android:id="@+id/lv_parcourt_list_fresque_view"
+            android:id="@+id/lv_parcours_list_fresque_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tv_parcourt_list_intro">

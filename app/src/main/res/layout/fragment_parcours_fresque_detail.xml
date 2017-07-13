@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtFresqueDetailFragment">
+    tools:context="com.formation.appli.bruxellesparcourbd.ui.parcours.ParcoursFresqueDetailFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -10,11 +10,9 @@
     <LinearLayout
     style="@style/LinearLayoutFrame">
 
-        <TextView
-            style="@style/textViewTextFrame"
-            android:text="@string/tv_fresque_image"/>
+
         <ImageView
-            android:id="@+id/iv_Parcourt_fresque_det_fresque_image"
+            android:id="@+id/iv_Parcours_fresque_det_fresque_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
@@ -23,7 +21,7 @@
                 android:text="@string/tv_titre_freque"
                 style="@style/textViewTextFrameMiddle"/>
             <TextView
-                android:id="@+id/tv_Parcourt_fresque_det_fresque_titre"
+                android:id="@+id/tv_Parcours_fresque_det_fresque_titre"
                 style="@style/textViewTextFrameMiddle"/>
         </LinearLayout>
 
@@ -33,7 +31,7 @@
                 android:text="@string/tv_auteur_fresque"
                 style="@style/textViewTextFrameMiddle"/>
             <TextView
-                android:id="@+id/tv_Parcourt_fresque_det_fresque_auteur"
+                android:id="@+id/tv_Parcours_fresque_det_fresque_auteur"
                 style="@style/textViewTextFrameMiddle"/>
         </LinearLayout>
 
@@ -43,7 +41,7 @@
                 android:text="@string/tv_annee_fresque"
                 style="@style/textViewTextFrameMiddle"/>
             <TextView
-                android:id="@+id/tv_Parcourt_fresque_det_fresque_annee"
+                android:id="@+id/tv_Parcours_fresque_det_fresque_annee"
                 style="@style/textViewTextFrameMiddle"/>
         </LinearLayout>
 
@@ -53,7 +51,7 @@
                 android:text="@string/tv_fresque_longitude"
                 style="@style/textViewTextFrameMiddle"/>
             <TextView
-                android:id="@+id/tv_Parcourt_fresque_det_fresque_longitude"
+                android:id="@+id/tv_Parcours_fresque_det_fresque_longitude"
                 style="@style/textViewTextFrameMiddle"/>
         </LinearLayout>
 
@@ -63,17 +61,11 @@
                 android:text="@string/tv_fresque_latitude"
                 style="@style/textViewTextFrameMiddle"/>
             <TextView
-                android:id="@+id/tv_Parcourt_fresque_det_fresque_latitude"
+                android:id="@+id/tv_Parcours_fresque_det_fresque_latitude"
                 style="@style/textViewTextFrameMiddle"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_Parcourt_fresque_det_retour"
-            android:text="@string/btn_parcourt_retour"
-            style="@style/Button2"
-            android:layout_marginRight="100dp"/>
-
-    </LinearLayout>
+           </LinearLayout>
     </ScrollView>
 
 </FrameLayout>

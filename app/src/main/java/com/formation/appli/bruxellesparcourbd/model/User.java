@@ -3,21 +3,33 @@ package com.formation.appli.bruxellesparcourbd.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.formation.appli.bruxellesparcourbd.DB.UserDAO;
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Jeremyvdm on 02/07/2017.
  */
 
 public class User implements Parcelable {
     //region POJO
-    private int _userId;
+    private String _userId;
     private String lastName;
     private String firstName;
     private String userName;
     private String email;
     private String password;
+    public int starCount = 0;
+    public Map<String, Boolean> stars = new HashMap<>();
+
+    public User(){
+        //Constructeur vide nécéssaire lorsqu'on appelle la méthode databaseSnapshot.getValue(User.class)
+    }
 
     public User(String lastName, String firstName, String userName, String email, String password) {
-        this._userId = -1;
+        this._userId = null;
         this.lastName = lastName;
         this.firstName = firstName;
         this.userName = userName;
@@ -25,7 +37,7 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public User(int userID, String lastName, String firstName, String userName, String email, String password) {
+    public User(String userID, String lastName, String firstName, String userName, String email, String password) {
         this._userId = userID;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -35,11 +47,11 @@ public class User implements Parcelable {
     }
 
 
-    public int get_userId() {
+    public String get_userId() {
         return _userId;
     }
 
-    public void set_userId(int _userId) {
+    public void set_userId(String _userId) {
         this._userId = _userId;
     }
 
@@ -93,7 +105,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        dest.writeInt(_userId);
+        dest.writeString(_userId);
         dest.writeString(lastName);
         dest.writeString(firstName);
         dest.writeString(email);
@@ -101,7 +113,7 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
-        _userId = in.readInt();
+        _userId = in.readString();
         lastName = in.readString();
         firstName = in.readString();
         userName = in.readString();
@@ -121,5 +133,22 @@ public class User implements Parcelable {
         }
     };
 
+    //endregion
+
+    //region database
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put(UserDAO.COLUMN_USERID, _userId);
+        result.put(UserDAO.COLUMN_LAST_NAME, lastName);
+        result.put(UserDAO.COLUMN_FIRST_NAME, firstName);
+        result.put(UserDAO.COLUMN_USER_NAME, userName);
+        result.put(UserDAO.COLUMN_EMAIL, userName);
+        result.put(UserDAO.COLUMN_PASSWORD, userName);
+        result.put("starCount", starCount);
+        result.put("stars", stars);
+
+        return result;
+    }
     //endregion
 }

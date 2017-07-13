@@ -22,6 +22,8 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
 
     private String urlRessourcesImage;
 
+    private View v;
+
     private TextView tv_fresque_titre;
     private TextView tv_fresque_auteur;
     private TextView tv_fresque_annee;
@@ -68,10 +70,9 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_play_fragemnt, container, false);
+        v =  inflater.inflate(R.layout.fragment_play_fragemnt, container, false);
         initParcourt();
         v = initFragment(v);
-
         return v;
     }
 
@@ -84,10 +85,10 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
         tv_fresque_latitude = (TextView) v.findViewById(R.id.tv_Play_fresque_det_fresque_latitude);
         iv_fresque_image = (ImageView) v.findViewById(R.id.iv_Play_fresque_det_fresque_image);
         btn_play_fresque_fresque_suivante = (Button) v.findViewById(R.id.btn_Play_fresque_det_next_fresque);
-        btn_play_fresque_fresque_suivante = (Button) v.findViewById(R.id.btn_Play_fresque_det_arriver);
+        btn_play_fresque_arriver = (Button) v.findViewById(R.id.btn_Play_fresque_det_arriver);
 
-        btn_play_fresque_arriver.setOnClickListener(this);
         btn_play_fresque_fresque_suivante.setOnClickListener(this);
+        btn_play_fresque_arriver.setOnClickListener(this);
 
         return v;
     }
@@ -96,6 +97,9 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
         extra = this.getArguments();
         fresquebdPlay = extra.getParcelable(GameActivity.FRESQUE_BD_PLAY);
         urlRessourcesImage = fresquebdPlay.getRessourceImage();
+        GetBitmapImageFromUrl getBitmapImageFromUrl = new GetBitmapImageFromUrl();
+        getBitmapImageFromUrl.setCallback(this);
+        getBitmapImageFromUrl.execute(urlRessourcesImage);
     }
 
     private void displayInfo(FresqueBD fresqueBD){
@@ -112,6 +116,7 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
     @Override
     public void getBitmap(Bitmap imageFresqueBitmap) {
         iv_fresque_image.setImageBitmap(imageFresqueBitmap);
+        iv_fresque_image.setAdjustViewBounds(true);
         displayInfo(fresquebdPlay);
     }
 
@@ -121,7 +126,9 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
     }
 
     private void sendCallBack(int id){
-        callback.onClickPlay(id);
+        if(callback != null ) {
+            callback.onClickPlay(id);
+        }
     }
 
 

@@ -15,8 +15,8 @@
             android:layout_height="40dp"/>
 
         <Button
-            android:id="@+id/btn_choice_user_choix_parcourt"
-            android:text="@string/btn_user_choice_choix_parcourt"
+            android:id="@+id/btn_choice_user_choix_parcours"
+            android:text="@string/btn_user_choice_choix_parcours"
             style="@style/Button2" />
 
         <View
@@ -32,8 +32,8 @@
             android:layout_height="40dp"/>
 
         <Button
-            android:id= "@+id/btn_choice_user_parcourt_general"
-            android:text="@string/btn_user_choice_parcourt_general"
+            android:id= "@+id/btn_choice_user_parcours_general"
+            android:text="@string/btn_user_choice_parcours_general"
             style="@style/Button2" />
     </LinearLayout>
 

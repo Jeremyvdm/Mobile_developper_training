@@ -1,4 +1,4 @@
-package com.formation.appli.bruxellesparcourbd.ui.parcourt;
+package com.formation.appli.bruxellesparcourbd.ui.parcours;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.formation.appli.bruxellesparcourbd.R;
 import com.formation.appli.bruxellesparcourbd.model.Coordonees;
 import com.formation.appli.bruxellesparcourbd.model.FresqueBD;
-import com.formation.appli.bruxellesparcourbd.model.ParcourtBD;
+import com.formation.appli.bruxellesparcourbd.model.ParcoursBD;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,25 +22,25 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 
-public class ParcourtCarteFragment extends Fragment{
+public class ParcoursCarteFragment extends Fragment{
 
     private Bundle extra;
-    private ArrayList<FresqueBD> parcourFresqueBd;
+    private ArrayList<FresqueBD> parcoursFresqueBd;
 
     private GoogleMap googleMap;
     private MapView mapView;
 
 
-    public ParcourtCarteFragment() {
+    public ParcoursCarteFragment() {
         // Required empty public constructor
     }
 
     //region Singleton
-    private static ParcourtCarteFragment instance;
+    private static ParcoursCarteFragment instance;
 
-    public static ParcourtCarteFragment getInstance() {
+    public static ParcoursCarteFragment getInstance() {
         if (instance == null) {
-            instance = new ParcourtCarteFragment();
+            instance = new ParcoursCarteFragment();
         }
         return instance;
     }
@@ -49,13 +49,13 @@ public class ParcourtCarteFragment extends Fragment{
     //endregion
 
     //region Communication
-    public interface ParcourtCarteFragmentFragmentCallback {
+    public interface ParcoursCarteFragmentFragmentCallback {
         void getDetailFresque(String titre);
     }
 
-    private ParcourtCarteFragmentFragmentCallback callback;
+    private ParcoursCarteFragmentFragmentCallback callback;
 
-    public void setCallback(ParcourtCarteFragmentFragmentCallback callback) {
+    public void setCallback(ParcoursCarteFragmentFragmentCallback callback) {
         this.callback = callback;
     }
     //endregion
@@ -66,14 +66,14 @@ public class ParcourtCarteFragment extends Fragment{
 
 
         initvariable();
-        initParcourt();
-        View v = inflater.inflate(R.layout.fragment_parcourt_carte, container, false);
+        initParcours();
+        View v = inflater.inflate(R.layout.fragment_parcours_carte, container, false);
         v= initCarte(v, savedInstanceState);
         return v;
     }
 
     private void initvariable(){
-        parcourFresqueBd = new ArrayList<>();
+        parcoursFresqueBd = new ArrayList<>();
         extra = this.getArguments();
     }
 
@@ -88,12 +88,12 @@ public class ParcourtCarteFragment extends Fragment{
             public void onMapReady(GoogleMap mMaps) {
                 googleMap = mMaps;
 
-                ArrayList<MarkerOptions> parcourtMarkeur = addMarqueurPosition();
+                ArrayList<MarkerOptions> parcoursMarkeur = addMarqueurPosition();
 
                 LatLngBounds.Builder fresqueBdParcPosBuilder = new LatLngBounds.Builder();
 
-                for (int i=0; i<parcourtMarkeur.size();i++){
-                    final MarkerOptions markerFresque = parcourtMarkeur.get(i);
+                for (int i=0; i<parcoursMarkeur.size();i++){
+                    final MarkerOptions markerFresque = parcoursMarkeur.get(i);
                     fresqueBdParcPosBuilder.include(markerFresque.getPosition());
                     googleMap.addMarker(markerFresque);
 
@@ -118,8 +118,8 @@ public class ParcourtCarteFragment extends Fragment{
 
     private ArrayList<MarkerOptions> addMarqueurPosition(){
         ArrayList<MarkerOptions> marqueurFresqueParcourtBd = new ArrayList<>();
-        for(int bd = 0; bd <parcourFresqueBd.size();bd++){
-            FresqueBD fresqueBD = parcourFresqueBd.get(bd);
+        for(int bd = 0; bd < parcoursFresqueBd.size(); bd++){
+            FresqueBD fresqueBD = parcoursFresqueBd.get(bd);
             String titreFresque = fresqueBD.getTitre();
             Coordonees coordoneesFresque = fresqueBD.getCoordonees();
             LatLng positionFresque = new LatLng(coordoneesFresque.getLatitude(),coordoneesFresque.getLongitude());
@@ -136,10 +136,10 @@ public class ParcourtCarteFragment extends Fragment{
         }
     }
 
-    private void initParcourt(){
+    private void initParcours(){
         extra = this.getArguments();
-        ParcourtBD parcourtBdObject = extra.getParcelable(ParcourtActivity.PARCOURT_BD_CHOISIS);
-        parcourFresqueBd = parcourtBdObject.getParcourtFresqueBD();
+        ParcoursBD parcoursBdObject = extra.getParcelable(ParcoursActivity.PARCOURS_BD_CHOISIS);
+        parcoursFresqueBd = parcoursBdObject.getParcoursFresqueBD();
     }
 
 

@@ -2,21 +2,15 @@ package com.formation.appli.bruxellesparcourbd.ui.User;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.formation.appli.bruxellesparcourbd.DB.UserDAO;
 import com.formation.appli.bruxellesparcourbd.R;
-import com.formation.appli.bruxellesparcourbd.ui.parcourt.ParcourtActivity;
+import com.formation.appli.bruxellesparcourbd.tools.FragToolBox;
+import com.formation.appli.bruxellesparcourbd.ui.parcours.ParcoursActivity;
 
-public class UserActivity extends AppCompatActivity implements ChoiceUserFragment.ChoiceUserFragmentCallBack, ParcourtUserFragment.ParcourtUserFragmentCallBack{
-    public static final String PARCOURTDEBUT = "debut";
-    public static final String PARCOURTFIN = "fin";
-    public static final String NUMERODEPARCOURT = "num_parc_choisi";
-    private int debut;
-    private int fin;
+public class UserActivity extends AppCompatActivity implements ChoiceUserFragment.ChoiceUserFragmentCallBack, ParcoursUserFragment.ParcoursUserFragmentCallBack {
+    public static final String NUMERODEPARCOURS = "num_parc_choisi";
     Bundle extra;
 
     @Override
@@ -35,59 +29,50 @@ public class UserActivity extends AppCompatActivity implements ChoiceUserFragmen
         ChoiceUserFragment fragment = ChoiceUserFragment.getInstance();
         fragment.setcallback(this);
         fragment.setArguments(newextra);
-        loadFragment(R.id.fl_user_frame, fragment);
+        FragToolBox.loadFragment(this,R.id.fl_user_frame, fragment);
     }
 
 
 
-    private void loadFragment(int id, Fragment fragment){
-        FragmentManager fragman = getSupportFragmentManager();
-        FragmentTransaction fragTrans = fragman.beginTransaction();
-        if(fragment != null){
-            fragTrans.replace(id, fragment);
-        }else{
-            fragTrans.add(id, fragment);
-        }
-        fragTrans.commit();
-    }
+
     @Override
     public void onCLick(int id) {
         switch (id){
-            case R.id.btn_choice_user_choix_parcourt:
+            case R.id.btn_choice_user_choix_parcours:
                 loadParcourtFragment();
                 break;
             case R.id.btn_choice_user_acces_db:
                 loadDbFragment();
                 break;
-            case R.id.btn_choice_user_parcourt_general:
+            case R.id.btn_choice_user_parcours_general:
                 loadParcourtActivity();
                 break;
         }
     }
 
     private void loadParcourtFragment(){
-        ParcourtUserFragment parUsFrag = new ParcourtUserFragment();
+        ParcoursUserFragment parUsFrag = new ParcoursUserFragment();
         parUsFrag.setcallback(this);
-        loadFragment(R.id.fl_user_frame, parUsFrag);
+        FragToolBox.loadFragment(this,R.id.fl_user_frame, parUsFrag);
     }
 
     private void loadDbFragment(){
         DbUserFragment dbUsFrag = new DbUserFragment();
         dbUsFrag.setcallback(this);
-        loadFragment(R.id.fl_user_frame, dbUsFrag);
+        FragToolBox.loadFragment(this,R.id.fl_user_frame, dbUsFrag);
     }
 
     private void loadParcourtActivity(){
         int parcourtNumber = 6;
-        Intent parcourtIntent = new Intent(this, ParcourtActivity.class);
-        parcourtIntent.putExtra(NUMERODEPARCOURT,parcourtNumber);
+        Intent parcourtIntent = new Intent(this, ParcoursActivity.class);
+        parcourtIntent.putExtra(NUMERODEPARCOURS,parcourtNumber);
         startActivity(parcourtIntent);
     }
 
     @Override
     public void parcourtActivity(int parcourtNumber) {
-        Intent parcourtIntent = new Intent(this, ParcourtActivity.class);
-        parcourtIntent.putExtra(NUMERODEPARCOURT,parcourtNumber);
+        Intent parcourtIntent = new Intent(this, ParcoursActivity.class);
+        parcourtIntent.putExtra(NUMERODEPARCOURS,parcourtNumber);
         startActivity(parcourtIntent);
     }
 

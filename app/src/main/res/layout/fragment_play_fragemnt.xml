@@ -10,9 +10,7 @@
         <LinearLayout
             style="@style/LinearLayoutFrame">
 
-            <TextView
-                style="@style/textViewTextFrame"
-                android:text="@string/tv_fresque_image"/>
+
             <ImageView
                 android:id="@+id/iv_Play_fresque_det_fresque_image"
                 android:layout_width="match_parent"
@@ -66,23 +64,23 @@
                     android:id="@+id/tv_Play_fresque_det_fresque_latitude"
                     style="@style/textViewTextFrameMiddle"/>
             </LinearLayout>
-            <LinearLayout
-                style="@style/LinearLayoutButton">
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
                 <Button
                     android:id="@+id/btn_Play_fresque_det_arriver"
                     android:text="@string/btn_play_fresque_Arriver"
-                    style="@style/Button"/>
-
-                <view
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"/>
+                    style="@style/Button"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"/>
 
                 <Button
                     android:id="@+id/btn_Play_fresque_det_next_fresque"
                     android:text="@string/btn_play_passer_fresque"
-                    style="@style/Button"/>
-            </LinearLayout>
+                    style="@style/Button"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
 
         </LinearLayout>

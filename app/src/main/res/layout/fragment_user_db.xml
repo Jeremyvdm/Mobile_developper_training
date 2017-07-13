@@ -18,7 +18,7 @@
 
         <Button
             android:id="@+id/btn_db_user_parcourt_deja_effecuer"
-            android:text="@string/btn_user_db_parcourt_deja_parcouru"
+            android:text="@string/btn_user_db_parcours_deja_parcouru"
             style="@style/Button2" />
 
         <Button

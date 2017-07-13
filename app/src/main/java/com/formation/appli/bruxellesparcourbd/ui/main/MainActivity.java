@@ -181,8 +181,10 @@ public class MainActivity extends AppCompatActivity implements AcceuilMainFragme
         FragmentTransaction fragTrans = fragman.beginTransaction();
         if(fragment != null){
             fragTrans.replace(id, fragment);
+            fragTrans.addToBackStack(null);
         }else{
             fragTrans.add(id, fragment);
+            fragTrans.addToBackStack(null);
         }
         fragTrans.commit();
     }

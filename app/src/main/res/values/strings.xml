@@ -7,9 +7,9 @@
     <string name="user_fragment">Bonjour %s que voulez vous faire?</string>
     <string name="parcourt_fragment">Quel parcourt voulez vous choisir?</string>
     <string name="db_fragment">Bienvenu dans la base de données que voulez vous faire</string>
-    <string name="parcourt_choice_fragment">Bienvenu dans le parcourt numéro %i</string>
-    <string name="parcourt_map_fragment">Voici la carte général du parcourt</string>
-    <string name="parcourt_list_fresque">voici la liste des fresques que vous aller trouver dans le parcourt</string>
+    <string name="parcours_choice_fragment">Bienvenu dans le parcourt numéro %i</string>
+    <string name="parcours_map_fragment">Voici la carte général du parcourt</string>
+    <string name="parcours_list_fresque">voici la liste des fresques que vous aller trouver dans le parcourt</string>
     <string name="tv_play_introduction">C\'est parti!</string>
 
     <string name="et_userName_example">jvblinc182@hotmail.com</string>
@@ -28,53 +28,57 @@
     <string name="tv_fresque_latitude">latitude</string>
     <string name="tv_fresque_longitude">longitude</string>
 
-    <string name="tv_endGame">bravo vous avez fini le parcourt!!</string>
+    <string name="tv_endGame">bravo vous avez fini le parcours!!</string>
 
-    <string name="btn_connection">Connection</string>
+    <string name="btn_connexion">Connexion</string>
     <string name="btn_nouvel_utilisateur">Nouvel Utilisateur</string>
     <string name="btn_confirm_information">confirmer</string>
     <string name="btn_continue">continuer</string>
 
-    <string name="btn_user_choice_choix_parcourt">Choisir un parcourt</string>
+    <string name="btn_user_choice_choix_parcours">Choisir un parcours</string>
     <string name="btn_user_choice_accès_db">Accèder à la base de donnée</string>
-    <string name="btn_user_choice_parcourt_general">Accèder au parcourt générale</string>
+    <string name="btn_user_choice_parcours_general">Accèder au parcours générale</string>
 
     <string name="btn_user_db_stat">voir les statistiques</string>
-    <string name="btn_user_db_parcourt_deja_parcouru">accèder au parcourts déjà effectuer</string>
+    <string name="btn_user_db_parcours_deja_parcouru">accèder au parcours déjà effectués</string>
     <string name="btn_user_db_retour">retour</string>
 
-    <string name="btn_user_parcourt_1">Parcourt numéro 1</string>
-    <string name="btn_user_parcourt_2">Parcourt numéro 2</string>
-    <string name="btn_user_parcourt_3">Parcourt numéro 3</string>
-    <string name="btn_user_parcourt_4">Parcourt numéro 4</string>
-    <string name="btn_user_parcourt_5">Parcourt numéro 5</string>
+    <string name="btn_user_parcours_1">Parcours numéro 1</string>
+    <string name="btn_user_parcours_2">Parcours numéro 2</string>
+    <string name="btn_user_parcours_3">Parcours numéro 3</string>
+    <string name="btn_user_parcours_4">Parcours numéro 4</string>
+    <string name="btn_user_parcours_5">Parcours numéro 5</string>
 
-    <string name="btn_parcourt_carte">afficher la carte du parcourt</string>
-    <string name="btn_parcourt_liste">liste des fresques du parcourt</string>
-    <string name="btn_parcourt_choose">choisir ce parcourt</string>
+    <string name="btn_parcours_carte">afficher la carte du parcours</string>
+    <string name="btn_parcours_liste">liste des fresques du parcours</string>
+    <string name="btn_parcours_choose">choisir ce parcours</string>
 
     <string name="btn_play_passer_fresque">passer suivante</string>
     <string name="btn_play_fresque_Arriver">arriver Fresque</string>
     <string name="btn_play_fresqueSuivante">fresque suivante</string>
 
-    <string name="btn_parcourt_retour">retour</string>
+    <string name="btn_parcours_retour">retour</string>
 
+    <string name="tv_game_result_frag_bravo">Bravo vous avez atteint la Fersque! Vous êtes trop fort! bien joué</string>
+    <string name="tv_game_result_frag_perdu">Bien essayé mais vous n\'avez pas atteilt la fresque! dommage...</string>
     <string name="btn_end_game_act_retrun_util">retour à l\'écran d\'acceuil</string>
 
-    <string name="parcourt_list_fresque_view">retour</string>
+    <string name="parcours_list_fresque_view">retour</string>
 
-    <string name="toast_not_same_password">les deux mots de passe ne corresponde pas veuillez inserer deux fois le même mot de passe</string>
-    <string name="toast_parcourt_choisis">le parcourt à bien été sélectionner</string>
+    <string name="toast_not_same_password">les deux mots de passe ne correspondent pas veuillez inserer deux fois le même mot de passe</string>
+    <string name="toast_parcours_choisis">le parcours à bien été sélectionner</string>
+    <string name="toast_image_chargement">l\'image à été corerectement chargée</string>
+    <string name="toast_parcours_charger">"le parcours a été correctemenet chargé"</string>
 
-    <string name="firebase_auth_failed">connection a échouer veillez réessayer plus tard!</string>
+    <string name="firebase_auth_failed">connexion a échoué veillez réessayer plus tard!</string>
 
     <string name="firebase_auth_creation_succeed">création d\'un nouvel utilisateur réussie</string>
-    <string name="firebase_auth_succeed">connection réussie!</string>
+    <string name="firebase_auth_succeed">connexion réussie!</string>
     <string name="FireBaseVerification_email_sent">Email envoyé</string>
     <string name="FireBasefailed_verification_email_sending">Email non envoyé</string>
 
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
-    <string name="firebase_status_fmt">BdParcourt User: %s</string>
+    <string name="firebase_status_fmt">BdParcours User: %s</string>
     <string name="signed_out">Signed Out</string>
     <string name="required_field">Required field</string>
 
