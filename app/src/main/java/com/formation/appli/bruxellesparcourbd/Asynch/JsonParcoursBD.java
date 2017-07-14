@@ -22,11 +22,9 @@ import java.util.ArrayList;
  * Created by Jeremyvdm on 03/07/2017.
  */
 
-public class
-
-
-JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
-
+//récupere le parcourt avec le Json de l'opendata prévu par la ville de Bruxelles qui reprend toutes les fresques de bd présentent dans la ville de Bruxelles
+public class JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
+// déclaration des variables
     private ArrayList<FresqueBD> parcourtBDJson;
     private int debut;
     private int fin;
@@ -42,18 +40,18 @@ JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
     }
     //endregion
 
-
+// déclaration de l'url en partie sous forme de constante
     private static final String URLBASE_PARCOURT_BD = "http://opendata.bruxelles.be/api/v2/catalog/datasets/bruxelles_parcours_bd/records?";
     private static final String URL_PARCOURT_START = "start=";
     private static final String URL_PARCOURT_STOP = "stop=";
-
+//initalisation du callback
     @Override
     protected void onPostExecute(ArrayList<FresqueBD> fresqueBDs) {
         if(callback!=null){
             callback.parcourt(parcourtBDJson);
         }
     }
-
+//récupération du parcourt sous forme de ArrayList<FresqueBD>
     @Override
     protected ArrayList<FresqueBD> doInBackground(Integer... integers) {
         parcourtBDJson = new ArrayList<>();
@@ -67,7 +65,7 @@ JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
         return parcourtBDJson;
     }
-
+    // Transformation du Json en fresque bd
     private FresqueBD convertJsonToFresque(JSONObject jsonFresqueBD) {
         String titre = "";
         String auteur = "";
@@ -92,7 +90,7 @@ JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
         coordonée = new Coordonees(longitude,lattitude);
         return new FresqueBD(titre,auteur,annee,coordonée,ressourceIamge);
     }
-
+// transformation du json objet en json array
     public JSONArray jsonArrayParcourt(JSONObject jsonparcourt){
         JSONArray parcourtJsonArray = new JSONArray();
         try {
@@ -104,7 +102,7 @@ JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
         }
         return parcourtJsonArray;
     }
-
+    // Transformation du JsonArray en ArrayList<fresqueBD>
     public ArrayList<FresqueBD> convertJsorrayToFresqueBD(JSONArray jsonArray){
         int lenghtParcourtJson = jsonArray.length();
         ArrayList<FresqueBD> FresqueParcourtFromArray = new ArrayList<>();
@@ -122,7 +120,7 @@ JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
             return FresqueParcourtFromArray;
     }
-
+    //fonction qui va transformer un url en Json objet
     public JSONObject resuqestJson(String urlString){
         JSONObject json=null;
         HttpURLConnection connection = null;
@@ -151,7 +149,7 @@ JsonParcoursBD extends AsyncTask <Integer, Void, ArrayList<FresqueBD>>{
 
 
 
-
+// Fonction qui va initialiser les bornes du début et de fin du parcours
     public void initParcourt(int idParcourt){
         switch (idParcourt){
             case 1:

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Jeremyvdm on 02/07/2017.
  */
-
+// initialisation des fresques BD
 public class FresqueBD implements Parcelable {
     private int _fresqueId;
     private String titre;

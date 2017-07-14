@@ -81,7 +81,12 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
-
+            <Button
+                android:id="@+id/btn_Play_fresque_det_show_map"
+                android:text="@string/btn_play_show_map"
+                style="@style/Button2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
 
         </LinearLayout>
     </ScrollView>

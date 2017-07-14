@@ -13,7 +13,7 @@ import android.support.v4.app.ActivityCompat;
 /**
  * Created by Jeremyvdm on 12/07/2017.
  */
-
+// classe qui va permettre une Localisation GPS
 public class LocalisationGPS  implements
         LocationListener  {
 

@@ -1,7 +1,9 @@
 package com.formation.appli.bruxellesparcourbd.ui.Game;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -30,6 +32,8 @@ public class GameActivity extends AppCompatActivity implements PlayFragemnt.play
 
     private ImageView iv_fresque_activity_num_parcours;
 
+    private static final int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1;
+
     public final static String FRESQUE_BD_PLAY = "Fresque_bd_play";
     public final static String FRESQUE_RESULT = "Fresque_bd_result";
 
@@ -44,7 +48,14 @@ public class GameActivity extends AppCompatActivity implements PlayFragemnt.play
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fresque);
+        requestPermission();
         initView();
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+        }
     }
 
 
@@ -99,7 +110,17 @@ public class GameActivity extends AppCompatActivity implements PlayFragemnt.play
             case R.id.btn_Play_fresque_det_next_fresque:
                 fresqueSuivante();
                 break;
+            case R.id.btn_Play_fresque_det_show_map:
+                showmap();
+                break;
         }
+    }
+    private void showmap(){
+        Bundle mapBundle = new Bundle();
+        mapBundle.putParcelable(FRESQUE_BD_PLAY,fresqueBDPlay);
+        MapGameFragment mapGameFragment = new MapGameFragment();
+        mapGameFragment.setArguments(mapBundle);
+        FragToolBox.loadFragment(this,R.id.fr_fresque_activity_frame,mapGameFragment);
     }
 
     @Override

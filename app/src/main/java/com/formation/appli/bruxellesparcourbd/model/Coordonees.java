@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Jeremyvdm on 03/07/2017.
  */
-
+// Pour récurer la postion latitude et longitude
 public class Coordonees implements Parcelable{
     private double longitude;
 

@@ -5,7 +5,7 @@
     <string name="acceuil_fragment">Bienvenu dans le jeu pour découvrir l\'univers de la BD en s\'amusant.</string>
     <string name="new_user_fragment">Ajouter un nouvel Utiliseur</string>
     <string name="user_fragment">Bonjour %s que voulez vous faire?</string>
-    <string name="parcourt_fragment">Quel parcourt voulez vous choisir?</string>
+    <string name="parcours_fragment">Quel parcours voulez vous choisir?</string>
     <string name="db_fragment">Bienvenu dans la base de données que voulez vous faire</string>
     <string name="parcours_choice_fragment">Bienvenu dans le parcourt numéro %i</string>
     <string name="database_update_fragment">Bonjour, voulez vous changer vos informations:</string>
@@ -60,6 +60,7 @@
     <string name="btn_play_passer_fresque">passer suivante</string>
     <string name="btn_play_fresque_Arriver">arriver Fresque</string>
     <string name="btn_play_fresqueSuivante">fresque suivante</string>
+    <string name="btn_play_show_map">voir la carte </string>
 
     <string name="btn_parcours_retour">retour</string>
 
@@ -88,9 +89,8 @@
 
     <string name="position">votre position est maintenant connue</string>
 
-
-
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -6,7 +6,7 @@ import java.io.InputStream;
 /**
  * Created by Jeremyvdm on 03/07/2017.
  */
-
+//traite les String afin de les transformer en Json
 public class InputStreamOperations {
     public static String InputStreamToString (InputStream in, int bufSize) {
         final StringBuilder out = new StringBuilder();

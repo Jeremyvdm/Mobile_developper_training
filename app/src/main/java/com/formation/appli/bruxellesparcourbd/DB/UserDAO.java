@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Jeremyvdm on 02/07/2017.
  */
-
+// initalise et gere les User avec la db de firebase
 public class UserDAO {
 
 
@@ -84,6 +84,8 @@ public class UserDAO {
             // ...
         }
     };
+
+
 
 
 }

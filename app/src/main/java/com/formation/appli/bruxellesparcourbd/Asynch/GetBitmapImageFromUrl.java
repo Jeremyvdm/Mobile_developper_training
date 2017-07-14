@@ -13,7 +13,7 @@ import java.net.URL;
 /**
  * Created by Jeremyvdm on 12/07/2017.
  */
-
+// Voici l'asynch task qui va permettre de récuper l'image en format bitmap
 public class GetBitmapImageFromUrl extends AsyncTask<String, Void, Bitmap> {
 
     private Bitmap imageBitmap;
@@ -31,7 +31,7 @@ public class GetBitmapImageFromUrl extends AsyncTask<String, Void, Bitmap> {
     }
     //endregion
 
-
+// Va ouvrir une connexion avec un url pour récuperer l'image bitmap
     @Override
     protected Bitmap doInBackground(String... strings) {
         imageBitmap=null;
@@ -61,7 +61,7 @@ public class GetBitmapImageFromUrl extends AsyncTask<String, Void, Bitmap> {
 
         return imageBitmap;
     }
-
+// Initialise le callback dans le post execute
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         callback.getBitmap(imageBitmap);

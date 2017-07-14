@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by Jeremyvdm on 02/07/2017.
  */
-
+// initialisation des user
 public class User implements Parcelable {
     //region POJO
     private String _userId;
@@ -35,6 +35,14 @@ public class User implements Parcelable {
         this.userName = userName;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String lastName, String firstName, String userName, String email) {
+        this._userId = null;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.userName = userName;
+        this.email = email;
     }
 
     public User(String userID, String lastName, String firstName, String userName, String email, String password) {

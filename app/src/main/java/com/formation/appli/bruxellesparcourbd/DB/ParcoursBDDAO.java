@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Jeremyvdm on 02/07/2017.
  */
-
+// initalise et gere les parcours avec la db de firebase
 public class ParcoursBDDAO {
     //region nom table et colonne
     public final static String PARCOURTBDTABLE = "parcours_bd";

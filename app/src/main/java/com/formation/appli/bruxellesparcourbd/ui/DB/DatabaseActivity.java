@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.formation.appli.bruxellesparcourbd.DB.UserDAO;
 import com.formation.appli.bruxellesparcourbd.R;
@@ -33,39 +34,39 @@ public class DatabaseActivity extends AppCompatActivity implements UserInformati
 
     private void iniFragment(){
         FirebaseDatabase databse = FirebaseDatabase.getInstance();
-        DatabaseReference mRef = databse.getReference();
         final String mUserId = MainActivity.mAuth.getCurrentUser().getUid();
+        DatabaseReference mRef = databse.getReference("parcourtbd/" + UserDAO.TABLE_USER);
         final Bundle  infoBundle = new Bundle();
-//Single event listener
-        mRef.child("users").child(mUserId).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        User currentUser = retriveUserData(dataSnapshot,mUserId);
-                        infoBundle.putParcelable(CURRENT_USER,currentUser);
-
-                    }
 
 
+        //Single event listener
+        mRef.child(mUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                User currentUser = dataSnapshot.getValue(User.class);
+                infoBundle.putParcelable(CURRENT_USER, currentUser);
+                // ...
+            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                Toast.makeText(getApplicationContext(),"failed to read value",Toast.LENGTH_SHORT).show();
+                // ...
+            }
+        });
+
         UserInformationFragment informationFragment = UserInformationFragment.getInstance();
         informationFragment.setCallback(this);
         informationFragment.setArguments(infoBundle);
         FragToolBox.loadFragment(this,R.id.fl_database_frame, informationFragment);
     }
-    private User retriveUserData(DataSnapshot dataSnapshot, String mUserID) {
+    private User retriveUserData(DataSnapshot dataSnapshot) {
         User userInformation = new User();
         for(DataSnapshot ds : dataSnapshot.getChildren()){
-            userInformation.setLastName(ds.child(mUserID).getValue(User.class).getLastName());
-            userInformation.setFirstName(ds.child(mUserID).getValue(User.class).getFirstName());
-            userInformation.setUserName(ds.child(mUserID).getValue(User.class).getUserName());
-            userInformation.setEmail(ds.child(mUserID).getValue(User.class).getEmail());
-            userInformation.setPassword(null);
+            userInformation = ds.getValue(User.class);
         }
         return userInformation;
     }

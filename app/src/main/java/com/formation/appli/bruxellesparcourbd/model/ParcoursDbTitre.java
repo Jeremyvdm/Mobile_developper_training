@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by Jeremyvdm on 13/07/2017.
  */
-
+// initialisation des parcours bd pour les stocker dans firebase
 public class ParcoursDbTitre {
     private String parcoursBdId;
     private String parcoursTitre;

@@ -12,7 +12,7 @@
             style="@style/LinearLayoutFrame">
 
             <TextView
-                android:text="@string/db_fragment"
+                android:text="@string/parcours_fragment"
                 style="@style/textViewTextFrame"/>
 
             <Button

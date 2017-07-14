@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Jeremyvdm on 02/07/2017.
  */
-
+// Initialisation des parcourds bd
 public class ParcoursBD implements Parcelable {
 
     private int parcoursBdID;

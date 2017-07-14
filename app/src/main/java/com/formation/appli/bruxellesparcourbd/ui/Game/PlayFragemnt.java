@@ -34,6 +34,7 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
 
     private Button btn_play_fresque_fresque_suivante;
     private Button btn_play_fresque_arriver;
+    private Button btn_play_fresque_maps;
 
     public PlayFragemnt() {
         // Required empty public constructor
@@ -86,9 +87,11 @@ public class PlayFragemnt extends Fragment implements GetBitmapImageFromUrl.GetB
         iv_fresque_image = (ImageView) v.findViewById(R.id.iv_Play_fresque_det_fresque_image);
         btn_play_fresque_fresque_suivante = (Button) v.findViewById(R.id.btn_Play_fresque_det_next_fresque);
         btn_play_fresque_arriver = (Button) v.findViewById(R.id.btn_Play_fresque_det_arriver);
+        btn_play_fresque_maps = (Button) v.findViewById(R.id.btn_Play_fresque_det_show_map);
 
         btn_play_fresque_fresque_suivante.setOnClickListener(this);
         btn_play_fresque_arriver.setOnClickListener(this);
+        btn_play_fresque_maps.setOnClickListener(this);
 
         return v;
     }

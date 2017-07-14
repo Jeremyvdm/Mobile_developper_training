@@ -22,7 +22,8 @@
                 <EditText
                     android:id="@+id/et_acceuil_email"
                     style="@style/edithTextFrameMiddle"
-                    android:hint="@string/et_userName_example"/>
+                    android:hint="@string/et_userName_example"
+                    android:inputType="textEmailAddress"/>
             </LinearLayout>
 
             <LinearLayout
